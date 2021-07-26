@@ -1,0 +1,30 @@
+.SignUp {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    flex-direction: column;
+  }
+
+  .InputContainer {
+      flex-direction: column;
+      display: flex;
+  }
+
+  .Container{
+      display: flex;
+      flex-direction: row;
+  }
+  
+  .SignBtn{
+      display: flex;
+      background-color: white;
+      border-radius: 10%;
+      height: 3vh;
+      margin-top: 5px;
+  }
+
+  .SignUpBtn{
+      
+  }
