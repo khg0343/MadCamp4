@@ -8,7 +8,7 @@ import styled from 'styled-components';
 function SignIn() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [newAccount, setNewAccount] = useState(true)
+    const [newAccount, setNewAccount] = useState(false)
     const [notice, setNotice] = useState('')
     let history = useHistory();
 
@@ -60,7 +60,7 @@ function SignIn() {
                 <input type="submit" value={newAccount ? "Sign Up" : "Sign In"} />
             </form>
             <h2>{notice}</h2>
-            <span onClick={toggleAccount}>{newAccount ? "Sign In" : "Sign Up"} </span>
+            <span className="SignBtn" onClick={toggleAccount}>{newAccount ? "Sign In" : "Sign Up"} </span>
         </div>
     )
 }
