@@ -1,0 +1,55 @@
+.SignIn {
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: gray;
+    flex-direction: column;
+  }
+
+  .InputContainer {
+      flex-direction: column;
+      display: flex;
+  }
+
+  .Container{
+      display: flex;
+      flex-direction: row;
+  }
+  .Younghoon {
+    display: flex;
+    flex-direction: column;
+  }
+  .LoginText {
+    color: black;
+  }
+  
+  .Shit {
+    width: 40px;
+    align-self: flex-start;
+  }
+  
+  .InputCont {
+    display: flex;
+    flex-direction: row;
+    width: 170px;
+  }
+  
+  .InputInfo {
+    display: flex;
+    width: 120px;
+    height: 20px;
+  }
+  
+  .LoginBtn {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10;
+    border: 1px;
+    background-color: bisque;
+    height: 50px;
+    width: 50px;
+  }
+  
