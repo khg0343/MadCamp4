@@ -7,6 +7,7 @@ import Modal from '../../Modal/Modal';
 
 const Wrapper = styled.div`
   background: #eee;
+  margin: 10px;
 `;
 
 const TitleWrapper = styled.div`

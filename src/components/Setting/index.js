@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import ChangeSkin from './Skin';
 import MusicPlayer from './Music';
+import EditProfile from './Profile'
 
 const Wrapper = styled.div`
   width: 20%;
@@ -18,6 +19,7 @@ const Setting = () => {
     <Wrapper>
       <MusicPlayer />
       <ChangeSkin />
+      <EditProfile />
     </Wrapper>
   );
 };

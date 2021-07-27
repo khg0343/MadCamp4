@@ -5,7 +5,7 @@ import PaletteTab from './PaletteTab';
 import Palette from './Palette';
 
 const Wrapper = styled.div`
-  margin-top: 10px;
+  margin: 10px;
   background: #eee;
 `;
 

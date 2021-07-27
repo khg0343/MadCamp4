@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const SidebarBlock = styled.div`
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 20%;
   height: 100%;
   margin-right: 8px;
   & > ul {

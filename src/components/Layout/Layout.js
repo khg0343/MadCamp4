@@ -5,14 +5,15 @@ import Setting from '../Setting';
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  height: 100vh;
+  padding: 3vh 1.5vw;
   background: ${props => props.theme.bg.color};
 `;
 
 const BorderWrapper = styled.div`
-  width: 75%;
+  width: 100%;
   height: 95vh;
-  padding: 25px;
+  padding: 4vh 2vw;
   background: ${props => props.theme.layoutBg1.color};
   border: 1px solid ${props => props.theme.layoutBorder1.color};
   border-radius: 10px;
@@ -23,7 +24,7 @@ const BgWrapper = styled.div`
   position: relative;
   display: flex;
   height: 100%;
-  padding: 20px 8px 8px;
+  padding: 4vh 1vw 1vh;
   background: ${props => props.theme.layoutBg2.color};
   border: 2px dashed ${props => props.theme.layoutBorder2.color};
   border-radius: 10px;
@@ -35,7 +36,7 @@ const Layout = ({ children }) => {
       <BorderWrapper>
         <BgWrapper>{children}</BgWrapper>
       </BorderWrapper>
-      <Setting />
+      {/* <Setting /> */}
     </Wrapper>
   );
 };

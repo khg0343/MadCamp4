@@ -99,7 +99,7 @@ const App = () => {
   return (
     <ThemeProvider theme={palette}>
       <Switch>
-        <Route exact path="/">
+        <Route path="/home">
           <Home />
         </Route>
         <Route path="/profile">

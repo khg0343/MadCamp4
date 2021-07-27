@@ -1,16 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import Layout from '../components/Layout/Layout';
-import Sidebar from '../components/Layout/Sidebar';
-import Content from '../components/Layout/Content';
-import Card from '../components/Layout/Card';
+import Layout from '../../components/Layout/Layout';
+import Sidebar from '../../components/Layout/Sidebar';
+import Content from '../../components/Layout/Content';
+import Card from '../../components/Layout/Card';
+
+import Surfing from './Surfing';
+import TodayState from './TodayState';
+
 import {
   MdLink,
   MdMailOutline,
   MdLocationOn,
-  MdPhoneIphone,
+  MdPhoneIphone
 } from 'react-icons/md';
-import { publicUrl } from '../utils/utils';
+import { publicUrl } from '../../utils/utils';
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -55,18 +59,28 @@ const ContentSection = styled.section`
   }
 `;
 
+const ProfileImg = styled.div`
+  z-index: 2;
+  position: relative;
+  display: flex;
+  padding: 0.5vh 0.5vw;
+  margin: 0.5vw;
+  border: 0.4vmin solid #F0F1F0;
+  border-radius: 1vmin;
+`;
+
 const ProfileSection = styled.section`
   height: fit-content !important;
   &:last-of-type {
-    padding: 10px 0;
+    padding: 1vh 0vw;
     border-top: 1px dashed #a5a5a5;
     p {
       display: flex;
       align-items: center;
-      margin: 10px 0;
+      margin: 1vh 0.5vw;
     }
     svg {
-      margin-right: 3px;
+      margin-right: 0.3vw;
       color: #666;
     }
   }
@@ -74,6 +88,8 @@ const ProfileSection = styled.section`
     width: 100%;
     height: auto;
     object-fit: cover;
+    align-items: center;
+    justify-content: center;
   }
   .my-name {
     margin-right: 5px;
@@ -82,7 +98,7 @@ const ProfileSection = styled.section`
     font-weight: bold;
   }
   .my-sex,
-  .my-brthdy {
+  .my-birthday {
     color: #9e9e9e;
     font-size: 0.85rem;
   }
@@ -95,16 +111,16 @@ const ProfileSection = styled.section`
 const LinkTitle = styled.p`
   display: flex;
   align-items: center;
-  margin: 10px 0;
+  margin: 0.8vh 0.5vw;
   &:first-of-type {
-    margin-top: 20px;
+    margin-top: 2vh;
   }
   &:last-of-type {
-    margin-bottom: 20px;
+    margin-bottom: 2vh;
   }
   cursor: pointer;
   svg {
-    margin-right: 5px;
+    margin-right: 0.5vw;
     color: #666;
     font-size: 1.2rem;
   }
@@ -127,7 +143,11 @@ const Home = () => {
         <Card>
           <FlexWrapper>
             <ProfileSection>
-              <img src={publicUrl + '/resources/img/memo_.jpg'} alt="profile" />
+              <TodayState />
+              <ProfileImg>
+               <img src={publicUrl + '/resources/img/character.png'} alt="profile" />
+              </ProfileImg>
+              
               <LinkTitle onClick={goGithub}>
                 <MdLink />
                 Github
@@ -139,30 +159,31 @@ const Home = () => {
             </ProfileSection>
             <ProfileSection>
               <p>
-                <span className="my-name">이단비</span>
+                <span className="my-name">김현지</span>
                 <span className="my-sex">(♀)</span>
-                <span className="my-brthdy">1992.08.19</span>
+                <span className="my-birthday">2000.09.27</span>
               </p>
               <p>
                 <MdMailOutline />
-                danbi.db@gmail.com
+                sally0343@gmail.com
               </p>
               <p>
                 <MdPhoneIphone />
-                010-4013-4147
+                010-5643-6248
               </p>
               <p>
                 <MdLocationOn />
-                경기도 안양시
+                울산광역시
               </p>
             </ProfileSection>
+            <Surfing />
           </FlexWrapper>
         </Card>
       </Sidebar>
       <Content>
         <Card>
           <ContentSection>
-            <h2>미니룸</h2>
+            <h2>Mini Room</h2>
             <div>
               <img
                 src={publicUrl + '/resources/img/miniroom.gif'}
@@ -173,9 +194,9 @@ const Home = () => {
           <ContentSection>
             <h2>한 줄 감성</h2>
             <ul>
-              <li>싸이월드 미니홈피 감성으로 기획, 개발했습니다~☆</li>
-              <li>프로필 페이지를 구경해주세요~☆</li>
-              <li>배경도 바꿀 수 있답니다~☆</li>
+              <li>아아아아아아아아아~☆</li>
+              <li>야야야야야야야야야양~☆</li>
+              <li>오오오오오오오오오오오~☆</li>
               <li></li>
               <li></li>
             </ul>
