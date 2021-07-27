@@ -15,19 +15,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -70,13 +57,14 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     noticeText: {
-        width: '150px',
+        width: '220px',
         fontWeight: 'bold',
         color: 'red',
     },
     btnCont: {
         display: 'flex',
         flexDirection: 'row',
+        marginBottom: 20,
     },
     inputCont: {
         fontSize: 12,
@@ -109,42 +97,47 @@ export default function SignUp() {
 
     const onClick = (event) => {
         event.preventDefault();
-        let check = true
-        firestore.collection('users').get().then(docs => {
-            docs.forEach(doc => {
-                if (id === doc.data().id | email === doc.data().email) {
-                    check = false
-                    setNotice('이미 존재하는 ID or Email 입니다.')
+        if (id === '' | email === '' | password === '' | birthday === '' | gender === '' | phone === '' | name === '') {
+            setNotice('입력되지 않은 정보가 존재합니다.')
+        }
+        else {
+            let check = true
+            firestore.collection('users').get().then(docs => {
+                docs.forEach(doc => {
+                    if (id === doc.data().id | email === doc.data().email) {
+                        check = false
+                        setNotice('이미 존재하는 ID or Email 입니다.')
+                    }
+                })
+            }).then(tmp => {
+                console.log(check)
+                if (check) {
+                    firestore.collection('users').doc(id).set({
+                        name: name,
+                        password: password,
+                        id: id,
+                        phone: phone,
+                        email: email,
+                        gender: gender,
+                        state: '졸림',
+                        today: [0, 0],
+                        birthday: birthday
+                    }).then(function () {
+                        console.log(1)
+                    }).catch(function (error) {
+                        console.log('error', error)
+                    })
+                    setBirthday('')
+                    setEmail('')
+                    setGender('')
+                    setId('')
+                    setName('')
+                    setPassword('')
+                    setPhone('')
+                    history.replace('/')
                 }
             })
-        }).then(tmp => {
-            console.log(check)
-            if (check) {
-                firestore.collection('users').doc(id).set({
-                    name: name,
-                    password: password,
-                    id: id,
-                    phone: phone,
-                    email: email,
-                    gender: gender,
-                    state: '졸림',
-                    today: [0, 0],
-                    birthday: birthday
-                }).then(function () {
-                    console.log(1)
-                }).catch(function (error) {
-                    console.log('error', error)
-                })
-                setBirthday('')
-                setEmail('')
-                setGender('')
-                setId('')
-                setName('')
-                setPassword('')
-                setPhone('')
-                history.replace('/')
-            }
-        })
+        }
     }
 
 
@@ -285,9 +278,6 @@ export default function SignUp() {
                     </div>
                 </form>
             </div>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
         </Container >
     );
 }
