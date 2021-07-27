@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { AgGridColumn, AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-balham.css";
@@ -7,6 +7,7 @@ import { Container, Row, Col } from "react-grid-system";
 import styled from "styled-components";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import { isoParse } from "d3";
+import { setCurTodayState } from "../../module/todaystatelist";
 
 const Wrapper = styled.div`
   margin: 0.75vh 0.5vw;
@@ -98,24 +99,19 @@ const Li = styled.li`
 `;
 
 const TodayState = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const { list: todaystatelist } = useSelector((state) => state.todaystatelist);
   const { curTodayState } = useSelector((state) => state.todaystatelist);
   const todaystatelistRef = useRef();
 
   function changeTodayState(item) {
-    if(item === "윤영훈"){
-      // alert('영훈영훈');
-      window.location.href = 'https://www.naver.com';
-    }
-    else if(item === "김윤재"){
-      // alert('영훈영훈');
-      window.location.href = 'https://www.google.com';
-    }
-    else if(item === "백지윤"){
-      // alert('영훈영훈');
-      window.location.href = 'https://www.daum.net';
-    }
+    dispatch(
+      setCurTodayState({
+        idx: 0,
+        title: item,
+      }),
+    );
   }
 
   // const state = {
