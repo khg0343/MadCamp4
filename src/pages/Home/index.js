@@ -36,11 +36,9 @@ const ContentSection = styled.section`
       margin-bottom: 5px;
     }
     div {
+      position: relative;
       width: 100%;
       min-height: 200px;
-      img {
-        width: 100%;
-      }
     }
   }
   &:last-of-type {
@@ -56,6 +54,17 @@ const ContentSection = styled.section`
       height: 30px;
       border-bottom: 1px dashed #a5a5a5;
     }
+  }
+  .backImg {
+    width: 100%;
+  }
+  .profImg {
+    position: absolute;
+    width: 12%;
+    height: auto;
+    right: 20%;
+    top: 30%;
+    cursor: pointer;
   }
 `;
 
@@ -186,9 +195,17 @@ const Home = () => {
             <h2>Mini Room</h2>
             <div>
               <img
+                className='backImg'
                 src={publicUrl + '/resources/img/miniroom.gif'}
                 alt="miniroom"
-              />
+              >
+              </img>
+              <a href="/react-miniportfoly/profile">
+                <img
+                className='profImg'
+                src={publicUrl + '/resources/img/mProfile.png'}
+                /> 
+              </a>
             </div>
           </ContentSection>
           <ContentSection>
