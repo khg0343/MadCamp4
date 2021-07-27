@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function SignUp() {
+export default function SignUp({ data }) {
     const classes = useStyles();
     const [id, setId] = useState('')
     const [email, setEmail] = useState('')
@@ -239,7 +239,7 @@ export default function SignUp() {
                             variant="contained"
                             style={{ backgroundColor: `${femaleBtn}` }}
                             className={classes.selGender}
-                            onClick={() => { setGender('여자'); setMaleBtn('white'); setFemaleBtn('gray') }}
+                            onClick={() => { setGender('여자'); setMaleBtn('white'); setFemaleBtn('#E6E3E1') }}
                         >
                             여자
                         </Button>
@@ -248,7 +248,7 @@ export default function SignUp() {
                             variant="contained"
                             style={{ backgroundColor: `${maleBtn}` }}
                             className={classes.selGender}
-                            onClick={() => { setGender('남자'); setMaleBtn('gray'); setFemaleBtn('white') }}
+                            onClick={() => { setGender('남자'); setMaleBtn('#E6E3E1'); setFemaleBtn('white') }}
                         >
                             남자
                         </Button>
