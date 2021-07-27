@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { Component, useState, useContext} from 'react';
+import { UserContext } from '../../store/users';
 import styled from 'styled-components';
 import Layout from '../../components/Layout/Layout';
 import Sidebar from '../../components/Layout/Sidebar';
 import Content from '../../components/Layout/Content';
 import Card from '../../components/Layout/Card';
-
 import Surfing from './Surfing';
 import TodayState from './TodayState';
 
@@ -86,7 +86,7 @@ const ProfileSection = styled.section`
     p {
       display: flex;
       align-items: center;
-      margin: 1vh 0.5vw;
+      margin: 1vh 0.1vw 1vh 0.2vw;
     }
     svg {
       margin-right: 0.3vw;
@@ -145,6 +145,8 @@ const Home = () => {
   const goVelog = () => {
     window.location.href = 'https://velog.io/@dblee';
   };
+  const context = useContext(UserContext);
+
 
   return (
     <Layout>
@@ -168,21 +170,21 @@ const Home = () => {
             </ProfileSection>
             <ProfileSection>
               <p>
-                <span className="my-name">김현지</span>
-                <span className="my-sex">(♀)</span>
-                <span className="my-birthday">2000.09.27</span>
+                <span className="my-name">{ context.name }</span>
+                <span className="my-sex">{ context.gender }</span>
+                <span className="my-birthday">{ context.birthday }</span>
               </p>
               <p>
                 <MdMailOutline />
-                sally0343@gmail.com
+                { context.email }
               </p>
               <p>
                 <MdPhoneIphone />
-                010-5643-6248
+                { context.phone }
               </p>
               <p>
                 <MdLocationOn />
-                울산광역시
+                { context.region }
               </p>
             </ProfileSection>
             <Surfing />
@@ -190,6 +192,7 @@ const Home = () => {
         </Card>
       </Sidebar>
       <Content>
+        <h1>{ context.frontTitle }</h1>
         <Card>
           <ContentSection>
             <h2>Mini Room</h2>
