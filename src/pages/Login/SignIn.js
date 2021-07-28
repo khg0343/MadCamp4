@@ -13,6 +13,7 @@ import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { publicUrl } from '../../utils/utils';
 
 
 function Copyright() {
@@ -108,8 +109,8 @@ export default function SignIn() {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <img className={classes.titleIcon} alt={"titleIcon"} src={"/react-miniportfoly/resources/img/title_icon.png"} />
-                <img className={classes.titleText} alt={"titleIcon"} src={"/react-miniportfoly/resources/img/title_text.png"} />
+                <img className={classes.titleIcon} alt={"titleIcon"} src={ publicUrl + "/resources/img/title_icon.png"} />
+                <img className={classes.titleText} alt={"titleIcon"} src={ publicUrl + "/resources/img/title_text.png"} />
                 <Typography component="h1" variant="h5"></Typography>
                 <form className={classes.form} noValidate>
                     <TextField

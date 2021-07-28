@@ -50,8 +50,8 @@ const PlayList = styled.ul`
   margin-top: 5px;
   padding: 10px;
   border-radius: 3px;
-  background: #333;
-  color: #eee;
+  background: white; //transparent;
+  color: #333;
 `;
 
 const Li = styled.li`
@@ -198,9 +198,9 @@ const MusicPlayer = () => {
 
   return (
     <Wrapper>
-      <Modal isOpen={isOpenModal} width={100} height={100} bg="lightblue">
+      {/* <Modal isOpen={isOpenModal} width={100} height={100} bg="lightblue">
         <PlayButton onClick={handleUserInteraction}>🎶</PlayButton>
-      </Modal>
+      </Modal> */}
       <TitleWrapper>
         🎶 <Title>{curSong.title}</Title>
       </TitleWrapper>

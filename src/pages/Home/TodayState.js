@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import { isoParse } from "d3";
 import { setCurTodayState } from "../../module/todaystatelist";
+import '../../App.css';
 
 const Wrapper = styled.div`
   margin: 0.75vh 0.5vw;
@@ -66,11 +67,12 @@ const Button = styled.button`
   background-color: white;
   color: black;
   font-size: 0.9rem;
+  font-family: "Gulim";
+  font-weight: bold;
   padding: 0.05vh 3vw;
   border-radius: 5px;
   border: white;
   cursor: pointer;
-
 `;
 
 const Li = styled.li`
@@ -98,6 +100,25 @@ const Li = styled.li`
   }
 `;
 
+const Text = styled.text`
+  .today-is {
+    color: #2991AC;
+    margin-left: 0.5vw;
+    margin-bottom: 0.15vh;
+    font-size: 0.9rem;
+    font-family: "DOSGothic";
+    font-weight: bold;
+  }
+  .today-state {
+    color: black;
+    margin-left: 1vw;
+    margin-bottom: 0.15vh;
+    font-size: 0.9rem;
+    font-family: "Gulim";
+    font-weight: bold;
+  }
+`;
+
 const TodayState = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
@@ -114,18 +135,13 @@ const TodayState = () => {
     );
   }
 
-  // const state = {
-  //     rowData: [
-  //         {make: 'Toyota', model: 'Celica', price: 35000},
-  //         {make: 'Ford', model: 'Mondeo', price: 32000},
-  //         {make: 'Porsche', model: 'Boxter', price: 72000}
-  //     ]
-  // }
-
   return (
     <Wrapper>
       <ToggleHeader>
-        <text> TODAY IS.. {curTodayState.title}</text>
+        <Text> 
+          <span className="today-is"> TODAY IS.. </span>
+          <span className="today-state"> {curTodayState.title}</span>
+        </Text>
         <ToggleButton onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
         </ToggleButton>
@@ -134,9 +150,9 @@ const TodayState = () => {
       <TodayStateList ref={todaystatelistRef} isOpen={isOpen}>
         {todaystatelist.map((item, index) => (
           <Li key={index} data-title={item}>
-            <a onClick={() => changeTodayState(item)} rel="noreferrer" target="_blank">
+            <a onClick={() => changeTodayState(item)} target="_blank">
               <Button>
-                <p>{item}</p>
+                {item}
               </Button>
             </a>
           </Li>

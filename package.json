@@ -1,10 +1,11 @@
 {
-  "name": "my-portfolio",
+  "name": "MadCamp4",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@react-firebase/firestore": "^0.5.5",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -17,19 +18,25 @@
     "lodash.debounce": "^4.0.8",
     "lodash.merge": "^4.6.2",
     "material-ui-image": "^3.3.2",
+    "node-sass": "^4.14.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.4",
+    "react-calendar": "^3.4.0",
+    "react-daypicker": "^3.0.10",
     "react-dom": "^17.0.1",
     "react-edit-text": "^4.0.3",
     "react-grid-system": "^7.2.0",
     "react-icons": "^3.11.0",
+    "react-image-button": "^1.0.6",
+    "react-jsx": "^1.0.0",
     "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.0",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
     "styled-components": "^5.2.1",
-    "web-vitals": "^0.2.4"
+    "web-vitals": "^0.2.4",
+    "webfontloader": "^1.6.28"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -57,8 +64,10 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://danbiilee.github.io/react-miniportfoly",
+  "homepage": "http://MadCamp.github.io/KAIWORLD",
   "devDependencies": {
-    "@types/react-edit-text": "^4.0.1"
+    "@types/react-edit-text": "^4.0.1",
+    "url-loader": "^4.1.1",
+    "webfont": "^11.2.4"
   }
 }

@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: 96%;
   margin-top: 10px;
-  padding: 20px;
+  padding: 2vh 1.5vw;
   border: 1px solid ${props => props.theme.cardBorder.color};
   border-radius: 10px;
   background: ${props => props.theme.cardBg.color};
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
     height: 100%;
   }
   &::-webkit-scrollbar {
-    display: none;
+    // display: none;
   }
 `;
 

@@ -8,7 +8,7 @@ const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 80%;
+  width: 75%;
   h1 {
     color: ${props => props.theme.headerColor.color};
     font-weight: bold;
@@ -42,9 +42,7 @@ const Content = ({ children }) => {
 
   return (
     <ContentWrapper>
-      <h1>{ title }</h1>
       {children}
-      {/* <MainMenu /> */}
     </ContentWrapper>
   );
 };  
