@@ -46,7 +46,7 @@ const ToggleButton = styled.button`
 const TodayStateList = styled.ul`
   display: ${(props) => (props.isOpen ? "flex" : "none")};
   height: 20vh;
-  width: 13.8vw;
+  width: 12.8vw;
   flex-direction: column;
   padding: 10px;
   margin-top: 2px;
@@ -71,7 +71,6 @@ const Button = styled.button`
   font-size: 0.9rem;
   font-family: "Gulim";
   font-weight: bold;
-  padding: 0.05vh 3vw;
   border-radius: 5px;
   border: white;
   cursor: pointer;

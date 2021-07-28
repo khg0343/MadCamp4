@@ -244,10 +244,6 @@ const Home = () => {
         </Card>
       </Sidebar>
       <Content fT={ context.frontTitle }>
-        <ContentHeader>
-          <h3> https://www.kaiworld.com/khg0343</h3> 
-        </ContentHeader>
-
         <Card>
           <ContentSection>
             <h2>Mini Room</h2>

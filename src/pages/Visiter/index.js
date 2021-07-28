@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import styled from "styled-components";
 import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
@@ -12,6 +12,7 @@ import Content from "../../components/Layout/Content";
 import ImageButton from "react-image-button";
 import Intro from "./Intro";
 import People from "./People";
+import { UserContext } from "../../store/users";
 import { publicUrl } from "../../utils/utils";
 import {
   MdLink,
@@ -26,7 +27,6 @@ const FlexWrapper = styled.div`
   justify-content: space-between;
   height: 100%;
 `;
-
 
 const ProfileImg = styled.div`
   z-index: 2;
@@ -84,7 +84,7 @@ const ProfileSection = styled.section`
 `;
 
 const Text = styled.text`
-  .intro{
+  .intro {
     display: flex;
     height: 17vh;
     margin: 1vw 2vh;
@@ -177,7 +177,7 @@ const VisiterText = styled.div`
   }
 `;
 
-const VisiterButton = styled.button`
+const VisiterButton = styled.div`
   display: flex;
   align-content: flex-end;
   margin-left: auto;
@@ -242,6 +242,7 @@ const VisiterPost = styled.div`
 const Visiter = () => {
   const location = useLocation();
   const match = useRouteMatch();
+  const context = useContext(UserContext);
   const list = [
     {
       id: 1,
@@ -268,59 +269,55 @@ const Visiter = () => {
   };
 
   const visiter_check = () => {
-    alert(text + "을 등록하겠습니까?");
-    setText("");
+    if(text !== '') {
+      alert(text + "을 등록하겠습니까?");
+      setText("");
+    } else {
+      alert("내용을 입력하세요");
+    }
   };
 
   return (
     <Layout>
       <Sidebar todayInfo={location.state.today}>
         <Card>
-          <FlexWrapper>
+        <FlexWrapper>
             <ProfileSection>
               <TodayState />
               <ProfileImg>
                 <img
-                  src={publicUrl + "/resources/img/character.png"}
+                  src={ publicUrl + "/resources/img/character.png"}
                   alt="profile"
                 />
               </ProfileImg>
-
               <Text>
-                <span className="intro">
-                  안녕 나는
-                  백지윤이야ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                </span>
+                <span className="intro">안녕 나는 백지윤이야ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>
               </Text>
             </ProfileSection>
             <ProfileSection>
               <p>
-                <span className="my-name">김현지</span>
-                <span className="my-sex">(♀)</span>
-                <span className="my-birthday">2000.09.27</span>
+                <span className="my-name">{ context.name }</span>
+                <span className="my-sex">{ context.gender }</span>
+                <span className="my-birthday">{ context.birthday }</span>
               </p>
               <p>
                 <MdMailOutline />
-                khg0343@kaiworld.com
+                { context.email }
               </p>
               <p>
                 <MdPhoneIphone />
-                010-5643-6248
+                { context.phone }
               </p>
               <p>
                 <MdLocationOn />
-                울산광역시
+                { context.region }
               </p>
             </ProfileSection>
             <Surfing />
           </FlexWrapper>
         </Card>
       </Sidebar>
-      <Content>
-        <ContentHeader>
-          <h1> FrontHeader </h1>
-          <h3> https://www.kaiworld.com/khg0343</h3>
-        </ContentHeader>
+      <Content fT={context.frontTitle}>
         <Card>
           <Title>Visiter</Title>
           <VisiterBook>
@@ -354,7 +351,6 @@ const Visiter = () => {
                 alt="home"
               />
               <text className="txt-date">(2021.07.28)</text>
-              {/* <button className="btn-">(2021.07.28)</button> */}
             </VisiterPostHeader>
             <div>
               <VisiterProfile>

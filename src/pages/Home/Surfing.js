@@ -37,7 +37,7 @@ const ToggleButton = styled.button`
 const FriendList = styled.ol`
   display: ${(props) => (props.isOpen ? "flex" : "none")};
   height: 10vh;
-  width: 13.8vw;
+  width: 12.8vw;
   flex-direction: column;
   padding: 10px;
   margin-top: 2px;
@@ -58,7 +58,7 @@ const Button = styled.button`
   background-color: white;
   color: black;
   font-size: 1rem;
-  padding: 0.1vh 3.5vw;
+  padding: 0 2.5vw 0 0.2vw;
   border-radius: 5px;
   border: white;
   cursor: pointer;
@@ -135,7 +135,7 @@ const Surfing = () => {
       <FriendList ref={friendlistRef} isOpen={isOpen}>
         {friendlist.map((item, index) => (
           <Li key={index} data-title={item}>
-            <a onClick={() => goSurf(item)} rel="noreferrer" target="_blank">
+            <a onClick={() => goSurf(item)} target="_blank">
               <Button>
                 <p>{item}</p>
               </Button>
