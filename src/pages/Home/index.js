@@ -237,7 +237,7 @@ const Home = () => {
                 alt="miniroom"
               >
               </img>
-              <button onClick={() => history.replace({
+              <button onClick={() => history.push({
                 pathname: '/profile',
                 state: { today: todayInfo }
               })} >
