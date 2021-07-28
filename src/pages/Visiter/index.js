@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import Card from "../../components/Layout/Card";
 import Surfing from "../Home/Surfing";
@@ -240,6 +240,7 @@ const VisiterPost = styled.div`
 `;
 
 const Visiter = () => {
+  const location = useLocation();
   const match = useRouteMatch();
   const list = [
     {
@@ -273,7 +274,7 @@ const Visiter = () => {
 
   return (
     <Layout>
-      <Sidebar>
+      <Sidebar todayInfo={location.state.today}>
         <Card>
           <FlexWrapper>
             <ProfileSection>
