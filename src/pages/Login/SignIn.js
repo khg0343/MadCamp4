@@ -80,6 +80,7 @@ export default function SignIn() {
     const [id, setId] = useState('')
     const [password, setPassword] = useState('')
     const [notice, setNotice] = useState('')
+    const [today, setToday] = useState([0, 0])
     let history = useHistory();
 
     const onClick = (event) => {
@@ -89,17 +90,20 @@ export default function SignIn() {
             docs.forEach(doc => {
                 if (id === doc.data().id && password === doc.data().password) {
                     check = true
+                    setToday(doc.data().today)
                 }
             })
         }).then(tmp => {
-            console.log(1)
             if (!check) {
                 setNotice('옳지 않은 정보입니다.')
                 setPassword('')
             } else {
                 console.log(2)
                 setNotice('')
-                history.replace('/home')
+                history.replace({
+                    pathname: '/home',
+                    state: { curLogin: id, today: today }
+                })
             }
         })
     }
