@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Layout from '../../components/Layout/Layout';
 import Sidebar from '../../components/Layout/Sidebar';
@@ -154,9 +154,9 @@ const Home = () => {
             <ProfileSection>
               <TodayState />
               <ProfileImg>
-               <img src={publicUrl + '/resources/img/character.png'} alt="profile" />
+                <img src={publicUrl + '/resources/img/character.png'} alt="profile" />
               </ProfileImg>
-              
+
               <LinkTitle onClick={goGithub}>
                 <MdLink />
                 Github
@@ -202,9 +202,9 @@ const Home = () => {
               </img>
               <a href="/react-miniportfoly/profile">
                 <img
-                className='profImg'
-                src={publicUrl + '/resources/img/mProfile.png'}
-                /> 
+                  className='profImg'
+                  src={publicUrl + '/resources/img/mProfile.png'}
+                />
               </a>
             </div>
           </ContentSection>
