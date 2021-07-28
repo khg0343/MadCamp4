@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { Component, useContext, useRef, useState } from "react";
+import { UserContext } from '../../store/users';
 import { useSelector, useDispatch } from "react-redux";
 // import { AgGridColumn, AgGridReact } from "ag-grid-react";
 // import "ag-grid-community/dist/styles/ag-grid.css";
@@ -8,6 +9,7 @@ import styled from "styled-components";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import { isoParse } from "d3";
 import { setCurTodayState } from "../../module/todaystatelist";
+import { firestore } from '../../fBase';
 
 const Wrapper = styled.div`
   margin: 0.75vh 0.5vw;
@@ -99,6 +101,7 @@ const Li = styled.li`
 `;
 
 const TodayState = () => {
+  const context = useContext(UserContext);
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const { list: todaystatelist } = useSelector((state) => state.todaystatelist);
@@ -112,20 +115,19 @@ const TodayState = () => {
         title: item,
       }),
     );
+    const onEditStateSubmit = async () => {
+      await firestore.doc(`users/${ context.id }`).update({
+        state: item
+      });
+    };
+    onEditStateSubmit();
+    console.log('aa')
   }
-
-  // const state = {
-  //     rowData: [
-  //         {make: 'Toyota', model: 'Celica', price: 35000},
-  //         {make: 'Ford', model: 'Mondeo', price: 32000},
-  //         {make: 'Porsche', model: 'Boxter', price: 72000}
-  //     ]
-  // }
-
+  
   return (
     <Wrapper>
       <ToggleHeader>
-        <text> TODAY IS.. {curTodayState.title}</text>
+        <text> TODAY IS.. { context.state }</text>
         <ToggleButton onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
         </ToggleButton>
