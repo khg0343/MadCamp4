@@ -1,12 +1,15 @@
-import React, { Component, useState, useContext} from 'react';
+import React, { Component, useState, useEffect, useContext} from 'react';
 import { UserContext } from '../../store/users';
 import styled from 'styled-components';
 import Layout from '../../components/Layout/Layout';
 import Sidebar from '../../components/Layout/Sidebar';
 import Content from '../../components/Layout/Content';
 import Card from '../../components/Layout/Card';
+import { useLocation, useHistory } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import Surfing from './Surfing';
 import TodayState from './TodayState';
+import { firestore } from '../../fBase';
 
 import {
   MdLink,
@@ -60,10 +63,10 @@ const ContentSection = styled.section`
   }
   .profImg {
     position: absolute;
-    width: 12%;
-    height: auto;
-    right: 20%;
-    top: 30%;
+    width: 4%;
+    height: 8%;
+    right: 24%;
+    top: 46%;
     cursor: pointer;
   }
 `;
@@ -137,8 +140,43 @@ const LinkTitle = styled.p`
     color: ${props => props.theme.mainColor.color};
   }
 `;
-
 const Home = () => {
+  const location = useLocation()
+  let today = ['-', '-']
+  const [todayInfo, setTodayInfo] = useState(today)
+  const dateInfo = parseInt(Date().split(' ')[2])
+  let history = useHistory();
+  useEffect(() => {
+    firestore.collection('users').get().then(docs => {
+      docs.forEach(doc => {
+        if (location.state.curLogin === doc.data().id) {
+          if (dateInfo === doc.data().last) {
+            today = [doc.data().today[0] + 1, doc.data().today[1] + 1]
+          } else {
+            today = [1, doc.data().today[1] + 1]
+          }
+          console.log(today)
+          firestore.doc(`users/${location.state.curLogin}`).update({
+            today: today
+          }).then(function () {
+            console.log(1)
+          }).catch(function (error) {
+            console.log('error', error)
+          })
+          firestore.doc(`users/${location.state.curLogin}`).update({
+            last: dateInfo
+          }).then(function () {
+            console.log(1)
+          }).catch(function (error) {
+            console.log('error', error)
+          })
+        }
+      })
+    }).then(tmp => {
+      console.log(dateInfo)
+      setTodayInfo(today)
+    })
+  }, []);
   const goGithub = () => {
     window.location.href = 'https://github.com/danbiilee/react-miniportfoly';
   };
@@ -150,15 +188,15 @@ const Home = () => {
 
   return (
     <Layout>
-      <Sidebar>
+      <Sidebar todayInfo={todayInfo}>
         <Card>
           <FlexWrapper>
             <ProfileSection>
               <TodayState />
               <ProfileImg>
-               <img src={publicUrl + '/resources/img/character.png'} alt="profile" />
+                <img src={publicUrl + '/resources/img/character.png'} alt="profile" />
               </ProfileImg>
-              
+
               <LinkTitle onClick={goGithub}>
                 <MdLink />
                 Github
@@ -202,23 +240,16 @@ const Home = () => {
                 alt="miniroom"
               >
               </img>
-              <a href="/react-miniportfoly/profile">
+              <button onClick={() => history.push({
+                pathname: '/profile',
+                state: { today: todayInfo }
+              })} >
                 <img
-                className='profImg'
-                src={publicUrl + '/resources/img/mProfile.png'}
-                /> 
-              </a>
+                  className='profImg'
+                  src={publicUrl + '/resources/img/profile.jpg'}
+                />
+              </button>
             </div>
-          </ContentSection>
-          <ContentSection>
-            <h2>한 줄 감성</h2>
-            <ul>
-              <li>아아아아아아아아아~☆</li>
-              <li>야야야야야야야야야양~☆</li>
-              <li>오오오오오오오오오오오~☆</li>
-              <li></li>
-              <li></li>
-            </ul>
           </ContentSection>
         </Card>
       </Content>
