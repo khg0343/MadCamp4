@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { Component, useContext, useRef, useState } from "react";
+import { UserContext } from '../../store/users';
 import { useSelector, useDispatch } from "react-redux";
 // import { AgGridColumn, AgGridReact } from "ag-grid-react";
 // import "ag-grid-community/dist/styles/ag-grid.css";
@@ -9,6 +10,7 @@ import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import { isoParse } from "d3";
 import { setCurTodayState } from "../../module/todaystatelist";
 import '../../App.css';
+import { firestore } from '../../fBase';
 
 const Wrapper = styled.div`
   margin: 0.75vh 0.5vw;
@@ -120,6 +122,7 @@ const Text = styled.text`
 `;
 
 const TodayState = () => {
+  const context = useContext(UserContext);
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const { list: todaystatelist } = useSelector((state) => state.todaystatelist);
@@ -133,14 +136,20 @@ const TodayState = () => {
         title: item,
       }),
     );
+    const onEditStateSubmit = async () => {
+      await firestore.doc(`users/${ context.id }`).update({
+        state: item
+      });
+    };
+    onEditStateSubmit();
+    console.log('aa')
   }
-
   return (
     <Wrapper>
       <ToggleHeader>
         <Text> 
           <span className="today-is"> TODAY IS.. </span>
-          <span className="today-state"> {curTodayState.title}</span>
+          <span className="today-state"> {context.state}</span>
         </Text>
         <ToggleButton onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}

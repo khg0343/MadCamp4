@@ -1,12 +1,17 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import Layout from "../../components/Layout/Layout";
-import Sidebar from "../../components/Layout/Sidebar";
-import Content from "../../components/Layout/Content";
-import Card from "../../components/Layout/Card";
-import Surfing from "./Surfing";
-import TodayState from "./TodayState";
+import React, { Component, useState, useEffect, useContext} from 'react';
+import styled from 'styled-components';
+import Layout from '../../components/Layout/Layout';
+import Sidebar from '../../components/Layout/Sidebar';
+import Content from '../../components/Layout/Content';
+import Card from '../../components/Layout/Card';
+import { useLocation, useHistory } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
+import Surfing from './Surfing';
+import TodayState from './TodayState';
 import { publicUrl } from "../../utils/utils";
+import { UserContext } from '../../store/users';
+import { firestore } from '../../fBase';
+
 import {
   MdLink,
   MdMailOutline,
@@ -80,10 +85,10 @@ const ContentSection = styled.section`
   }
   .profImg {
     position: absolute;
-    width: 12%;
-    height: auto;
-    right: 20%;
-    top: 30%;
+    width: 4%;
+    height: 8%;
+    right: 24%;
+    top: 46%;
     cursor: pointer;
   }
 `;
@@ -106,7 +111,7 @@ const ProfileSection = styled.section`
     p {
       display: flex;
       align-items: center;
-      margin: 1vh 0.5vw;
+      margin: 1vh 0.1vw 1vh 0.2vw;
       font-size: 0.9rem;
       font-family: "Gulim";
     }
@@ -152,11 +157,54 @@ const Text = styled.text`
     font-family: "Gulim";
   }
 `;
-
 const Home = () => {
+  const location = useLocation()
+  let today = ['-', '-']
+  const [todayInfo, setTodayInfo] = useState(today)
+  const dateInfo = parseInt(Date().split(' ')[2])
+  let history = useHistory();
+  useEffect(() => {
+    firestore.collection('users').get().then(docs => {
+      docs.forEach(doc => {
+        if (location.state.curLogin === doc.data().id) {
+          if (dateInfo === doc.data().last) {
+            today = [doc.data().today[0] + 1, doc.data().today[1] + 1]
+          } else {
+            today = [1, doc.data().today[1] + 1]
+          }
+          console.log(today)
+          firestore.doc(`users/${location.state.curLogin}`).update({
+            today: today
+          }).then(function () {
+            console.log(1)
+          }).catch(function (error) {
+            console.log('error', error)
+          })
+          firestore.doc(`users/${location.state.curLogin}`).update({
+            last: dateInfo
+          }).then(function () {
+            console.log(1)
+          }).catch(function (error) {
+            console.log('error', error)
+          })
+        }
+      })
+    }).then(tmp => {
+      console.log(dateInfo)
+      setTodayInfo(today)
+    })
+  }, []);
+  const goGithub = () => {
+    window.location.href = 'https://github.com/danbiilee/react-miniportfoly';
+  };
+  const goVelog = () => {
+    window.location.href = 'https://velog.io/@dblee';
+  };
+  const context = useContext(UserContext);
+
   return (
     <Layout>
-      <Sidebar>
+      <Sidebar todayInfo={todayInfo}>
         <Card>
           <FlexWrapper>
             <ProfileSection>
@@ -171,36 +219,35 @@ const Home = () => {
               <Text>
                 <span className="intro">안녕 나는 백지윤이야ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>
               </Text>
-
             </ProfileSection>
             <ProfileSection>
               <p>
-                <span className="my-name">김현지</span>
-                <span className="my-sex">(♀)</span>
-                <span className="my-birthday">2000.09.27</span>
+                <span className="my-name">{ context.name }</span>
+                <span className="my-sex">{ context.gender }</span>
+                <span className="my-birthday">{ context.birthday }</span>
               </p>
               <p>
                 <MdMailOutline />
-                khg0343@kaiworld.com
+                { context.email }
               </p>
               <p>
                 <MdPhoneIphone />
-                010-5643-6248
+                { context.phone }
               </p>
               <p>
                 <MdLocationOn />
-                울산광역시
+                { context.region }
               </p>
             </ProfileSection>
             <Surfing />
           </FlexWrapper>
         </Card>
       </Sidebar>
-      <Content>
+      <Content fT={ context.frontTitle }>
         <ContentHeader>
-          <h1> Title </h1>
           <h3> https://www.kaiworld.com/khg0343</h3> 
         </ContentHeader>
+
         <Card>
           <ContentSection>
             <h2>Mini Room</h2>
@@ -209,25 +256,19 @@ const Home = () => {
                 className="backImg"
                 src={publicUrl + "/resources/img/miniroom.gif"}
                 alt="miniroom"
-              />
-              <a href= {publicUrl + "/visiter"}>
+              >
+              </img>
+              <button onClick={() => history.push({
+                pathname: '/visiter',
+                state: { today: todayInfo }
+              })} >
                 <img
-                  className="profImg"
-                  src={publicUrl + "/resources/img/mProfile.png"}
+                  className='profImg'
+                  src={publicUrl + '/resources/img/profile.jpg'}
                   alt="YoungHoon"
                 />
-              </a>
+              </button>
             </div>
-          </ContentSection>
-          <ContentSection>
-            <h2>한 줄 감성</h2>
-            <ul>
-              <li>아아아아아아아아아~☆</li>
-              <li>야야야야야야야야야양~☆</li>
-              <li>오오오오오오오오오오오~☆</li>
-              <li></li>
-              <li></li>
-            </ul>
           </ContentSection>
         </Card>
       </Content>

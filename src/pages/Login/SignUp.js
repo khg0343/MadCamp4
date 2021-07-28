@@ -16,19 +16,6 @@ import Container from '@material-ui/core/Container';
 import { publicUrl } from '../../utils/utils';
 
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -51,6 +38,11 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 10,
         margin: 10,
     },
+    selGender: {
+        margin: theme.spacing(3, 0, 2),
+        color: 'black',
+        margin: 2,
+    },
     titleIcon: {
         width: '90px',
         height: '90px',
@@ -66,45 +58,89 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     noticeText: {
-        width: '150px',
+        width: '220px',
         fontWeight: 'bold',
         color: 'red',
     },
     btnCont: {
         display: 'flex',
         flexDirection: 'row',
+        marginBottom: 20,
+    },
+    inputCont: {
+        fontSize: 12,
+    },
+    birthText: {
+        fontWeight: 'bold',
+    },
+    birthTextCont: {
+        alignItems: 'flex-end',
+        display: 'flex',
+        marginTop: 5,
     }
 }));
 
 
-export default function SignIn() {
+export default function SignUp({ data }) {
     const classes = useStyles();
     const [id, setId] = useState('')
+    const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [birthday, setBirthday] = useState('')
+    const [gender, setGender] = useState('')
+    const [name, setName] = useState('')
+    const [phone, setPhone] = useState('')
     const [notice, setNotice] = useState('')
+    const [maleBtn, setMaleBtn] = useState("white")
+    const [femaleBtn, setFemaleBtn] = useState("white")
+
     let history = useHistory();
 
     const onClick = (event) => {
         event.preventDefault();
-        let check = false
-        firestore.collection('users').get().then(docs => {
-            docs.forEach(doc => {
-                if (id === doc.data().id && password === doc.data().password) {
-                    check = true
+        if (id === '' | email === '' | password === '' | birthday === '' | gender === '' | phone === '' | name === '') {
+            setNotice('입력되지 않은 정보가 존재합니다.')
+        }
+        else {
+            let check = true
+            firestore.collection('users').get().then(docs => {
+                docs.forEach(doc => {
+                    if (id === doc.data().id | email === doc.data().email) {
+                        check = false
+                        setNotice('이미 존재하는 ID or Email 입니다.')
+                    }
+                })
+            }).then(tmp => {
+                console.log(check)
+                if (check) {
+                    firestore.collection('users').doc(id).set({
+                        name: name,
+                        password: password,
+                        id: id,
+                        phone: phone,
+                        email: email,
+                        gender: gender,
+                        state: '졸림',
+                        today: [0, 0],
+                        birthday: birthday
+                    }).then(function () {
+                        console.log(1)
+                    }).catch(function (error) {
+                        console.log('error', error)
+                    })
+                    setBirthday('')
+                    setEmail('')
+                    setGender('')
+                    setId('')
+                    setName('')
+                    setPassword('')
+                    setPhone('')
+                    history.replace('/')
                 }
             })
-        }).then(tmp => {
-            console.log(1)
-            if (!check) {
-                setNotice('옳지 않은 정보입니다.')
-                setPassword('')
-            } else {
-                console.log(2)
-                setNotice('')
-                history.replace('/home')
-            }
-        })
+        }
     }
+
 
     return (
         <Container component="main" maxWidth="xs">
@@ -119,12 +155,40 @@ export default function SignIn() {
                         margin="normal"
                         required
                         fullWidth
+                        id="name"
+                        label="Name"
+                        name="name"
+                        autoComplete="off"
+                        autoFocus
+                        size="small"
+                        margin="dense"
+                        onChange={e => setName(e.target.value)}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
                         id="id"
                         label="ID"
                         name="id"
                         autoComplete="off"
-                        autoFocus
+                        size="small"
+                        margin="dense"
                         onChange={e => setId(e.target.value)}
+                    />
+                    <TextField
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="email"
+                        label="Email."
+                        name="email"
+                        autoComplete="off"
+                        size="small"
+                        margin="dense"
+                        onChange={e => setEmail(e.target.value)}
                     />
                     <TextField
                         variant="outlined"
@@ -136,6 +200,8 @@ export default function SignIn() {
                         type="password"
                         id="password"
                         autoComplete="off"
+                        size="small"
+                        margin="dense"
                         onChange={e => setPassword(e.target.value)}
                     />
                     <TextField
@@ -143,49 +209,51 @@ export default function SignIn() {
                         margin="normal"
                         required
                         fullWidth
-                        id="id"
-                        label="ID"
-                        name="id"
+                        id="phone"
+                        label="Phone"
+                        name="phone"
                         autoComplete="off"
-                        autoFocus
-                        onChange={e => setId(e.target.value)}
+                        size="small"
+                        margin="dense"
+                        onChange={e => setPhone(e.target.value)}
                     />
+                    <div className={classes.birthTextCont}>
+                        <h3 className={classes.birthText}>BirthDay</h3>
+                    </div>
                     <TextField
                         variant="outlined"
                         margin="normal"
                         required
                         fullWidth
-                        id="id"
-                        label="ID"
-                        name="id"
                         autoComplete="off"
-                        autoFocus
-                        onChange={e => setId(e.target.value)}
+                        size="small"
+                        type="date"
+                        margin="dense"
+                        onChange={e => setBirthday(e.target.value)}
                     />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="id"
-                        label="ID"
-                        name="id"
-                        autoComplete="off"
-                        autoFocus
-                        onChange={e => setId(e.target.value)}
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="id"
-                        label="ID"
-                        name="id"
-                        autoComplete="off"
-                        autoFocus
-                        onChange={e => setId(e.target.value)}
-                    />
+                    <div className={classes.birthTextCont}>
+                        <h3 className={classes.birthText}>Gender</h3>
+                    </div>
+                    <div className={classes.btnCont}>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            style={{ backgroundColor: `${femaleBtn}` }}
+                            className={classes.selGender}
+                            onClick={() => { setGender('여자'); setMaleBtn('white'); setFemaleBtn('#E6E3E1') }}
+                        >
+                            여자
+                        </Button>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            style={{ backgroundColor: `${maleBtn}` }}
+                            className={classes.selGender}
+                            onClick={() => { setGender('남자'); setMaleBtn('#E6E3E1'); setFemaleBtn('white') }}
+                        >
+                            남자
+                        </Button>
+                    </div>
                     <div className={classes.noticeTextCont}>
                         <h3 className={classes.noticeText}>{notice}</h3>
                     </div>
@@ -211,9 +279,6 @@ export default function SignIn() {
                     </div>
                 </form>
             </div>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
-        </Container>
+        </Container >
     );
 }
