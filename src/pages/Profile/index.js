@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
+import { Switch, Route, useRouteMatch, useLocation } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import Card from '../../components/Layout/Card';
 import SubMenu from '../../components/Menu/SubMenu';
@@ -11,6 +11,7 @@ import Favorite from './Favorite';
 
 const Profile = () => {
   const match = useRouteMatch();
+  const location = useLocation();
   const list = [
     {
       id: 1,
@@ -36,7 +37,7 @@ const Profile = () => {
 
   return (
     <Layout>
-      <Sidebar>
+      <Sidebar todayInfo={location.state.today}>
         <Card>
           <SubMenu title="Profile" list={list} />
         </Card>

@@ -5,6 +5,7 @@ import Sidebar from '../../components/Layout/Sidebar';
 import Content from '../../components/Layout/Content';
 import Card from '../../components/Layout/Card';
 import { useLocation, useHistory } from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 import Surfing from './Surfing';
 import TodayState from './TodayState';
 import { firestore } from '../../fBase';
@@ -143,6 +144,7 @@ const Home = () => {
   let today = ['-', '-']
   const [todayInfo, setTodayInfo] = useState(today)
   const dateInfo = parseInt(Date().split(' ')[2])
+  let history = useHistory();
   useEffect(() => {
     firestore.collection('users').get().then(docs => {
       docs.forEach(doc => {
@@ -235,12 +237,15 @@ const Home = () => {
                 alt="miniroom"
               >
               </img>
-              <a href="/react-miniportfoly/profile">
+              <button onClick={() => history.replace({
+                pathname: '/profile',
+                state: { today: todayInfo }
+              })} >
                 <img
                   className='profImg'
                   src={publicUrl + '/resources/img/profile.jpg'}
                 />
-              </a>
+              </button>
             </div>
           </ContentSection>
           <ContentSection>
