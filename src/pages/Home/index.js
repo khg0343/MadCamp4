@@ -248,16 +248,6 @@ const Home = () => {
               </button>
             </div>
           </ContentSection>
-          <ContentSection>
-            <h2>한 줄 감성</h2>
-            <ul>
-              <li>아아아아아아아아아~☆</li>
-              <li>야야야야야야야야야양~☆</li>
-              <li>오오오오오오오오오오오~☆</li>
-              <li></li>
-              <li></li>
-            </ul>
-          </ContentSection>
         </Card>
       </Content>
     </Layout>
