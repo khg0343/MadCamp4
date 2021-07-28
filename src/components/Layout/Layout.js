@@ -11,7 +11,7 @@ const Wrapper = styled.div`
 `;
 
 const BorderWrapper = styled.div`
-  width: 100%;
+  width: 80%;
   height: 95vh;
   padding: 4vh 2vw;
   background: ${props => props.theme.layoutBg1.color};
@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
       <BorderWrapper>
         <BgWrapper>{children}</BgWrapper>
       </BorderWrapper>
-      {/* <Setting /> */}
+      <Setting />
     </Wrapper>
   );
 };

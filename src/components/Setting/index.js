@@ -19,7 +19,7 @@ const Setting = () => {
     <Wrapper>
       <MusicPlayer />
       <ChangeSkin />
-      <EditProfile />
+      {/* <EditProfile /> */}
     </Wrapper>
   );
 };

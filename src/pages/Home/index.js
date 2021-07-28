@@ -1,5 +1,4 @@
 import React, { Component, useState, useEffect, useContext} from 'react';
-import { UserContext } from '../../store/users';
 import styled from 'styled-components';
 import Layout from '../../components/Layout/Layout';
 import Sidebar from '../../components/Layout/Sidebar';
@@ -9,15 +8,17 @@ import { useLocation, useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import Surfing from './Surfing';
 import TodayState from './TodayState';
+import { publicUrl } from "../../utils/utils";
+import { UserContext } from '../../store/users';
 import { firestore } from '../../fBase';
 
 import {
   MdLink,
   MdMailOutline,
   MdLocationOn,
-  MdPhoneIphone
-} from 'react-icons/md';
-import { publicUrl } from '../../utils/utils';
+  MdPhoneIphone,
+} from "react-icons/md";
+
 
 const FlexWrapper = styled.div`
   display: flex;
@@ -26,13 +27,34 @@ const FlexWrapper = styled.div`
   height: 100%;
 `;
 
-const ContentSection = styled.section`
+const ContentHeader = styled.section`
   height: fit-content !important;
+  display: flex;
+  flex-direction: row;
+  margin-left: 1vw; 
+  margin-right: 1vw;  
+  h1 {
+    font-weight: bold;
+    display: flex;
+    width: 80%;
+  }
+  h3 {
+    display: flex;
+    margin-top: 1vh;
+    color: #777777;
+    font-size: 0.1rem;
+  }
+`;
+
+const ContentSection = styled.section`
+  // width: fit-content !important;
+  height: fit-content !important;
+  margin: 0.5vh 0.7vw;
   h2 {
     padding: 5px;
     margin-bottom: 10px;
     font-weight: bold;
-    color: ${props => props.theme.mainColor.color};
+    color: ${(props) => props.theme.mainColor.color};
   }
   &:first-of-type {
     h2 {
@@ -77,7 +99,7 @@ const ProfileImg = styled.div`
   display: flex;
   padding: 0.5vh 0.5vw;
   margin: 0.5vw;
-  border: 0.4vmin solid #F0F1F0;
+  border: 0.4vmin solid #f0f1f0;
   border-radius: 1vmin;
 `;
 
@@ -90,6 +112,8 @@ const ProfileSection = styled.section`
       display: flex;
       align-items: center;
       margin: 1vh 0.1vw 1vh 0.2vw;
+      font-size: 0.9rem;
+      font-family: "Gulim";
     }
     svg {
       margin-right: 0.3vw;
@@ -105,39 +129,32 @@ const ProfileSection = styled.section`
   }
   .my-name {
     margin-right: 5px;
-    color: ${props => props.theme.mainColor.color};
+    margin-bottom: 5px;
+    color: ${(props) => props.theme.mainColor.color};
     font-size: 1rem;
+    font-family: "Gulim";
     font-weight: bold;
   }
-  .my-sex,
   .my-birthday {
+    margin-bottom: 5px;
     color: #9e9e9e;
     font-size: 0.85rem;
   }
   .my-sex {
     margin-right: 2px;
+    margin-bottom: 5px;
+    color: #9e9e9e;
     font-size: 0.8rem;
   }
 `;
 
-const LinkTitle = styled.p`
-  display: flex;
-  align-items: center;
-  margin: 0.8vh 0.5vw;
-  &:first-of-type {
-    margin-top: 2vh;
-  }
-  &:last-of-type {
-    margin-bottom: 2vh;
-  }
-  cursor: pointer;
-  svg {
-    margin-right: 0.5vw;
-    color: #666;
-    font-size: 1.2rem;
-  }
-  &:hover {
-    color: ${props => props.theme.mainColor.color};
+const Text = styled.text`
+  .intro{
+    display: flex;
+    height: 17vh;
+    margin: 1vw 2vh;
+    font-size: 0.9rem;
+    font-family: "Gulim";
   }
 `;
 const Home = () => {
@@ -185,7 +202,6 @@ const Home = () => {
   };
   const context = useContext(UserContext);
 
-
   return (
     <Layout>
       <Sidebar todayInfo={todayInfo}>
@@ -194,17 +210,15 @@ const Home = () => {
             <ProfileSection>
               <TodayState />
               <ProfileImg>
-                <img src={publicUrl + '/resources/img/character.png'} alt="profile" />
+                <img
+                  src={ publicUrl + "/resources/img/character.png"}
+                  alt="profile"
+                />
               </ProfileImg>
 
-              <LinkTitle onClick={goGithub}>
-                <MdLink />
-                Github
-              </LinkTitle>
-              <LinkTitle onClick={goVelog}>
-                <MdLink />
-                dblee.log
-              </LinkTitle>
+              <Text>
+                <span className="intro">안녕 나는 백지윤이야ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>
+              </Text>
             </ProfileSection>
             <ProfileSection>
               <p>
@@ -230,23 +244,28 @@ const Home = () => {
         </Card>
       </Sidebar>
       <Content fT={ context.frontTitle }>
+        <ContentHeader>
+          <h3> https://www.kaiworld.com/khg0343</h3> 
+        </ContentHeader>
+
         <Card>
           <ContentSection>
             <h2>Mini Room</h2>
             <div>
               <img
-                className='backImg'
-                src={publicUrl + '/resources/img/miniroom.gif'}
+                className="backImg"
+                src={publicUrl + "/resources/img/miniroom.gif"}
                 alt="miniroom"
               >
               </img>
               <button onClick={() => history.push({
-                pathname: '/profile',
+                pathname: '/visiter',
                 state: { today: todayInfo }
               })} >
                 <img
                   className='profImg'
                   src={publicUrl + '/resources/img/profile.jpg'}
+                  alt="YoungHoon"
                 />
               </button>
             </div>

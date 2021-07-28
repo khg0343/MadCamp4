@@ -9,6 +9,7 @@ import styled from "styled-components";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import { isoParse } from "d3";
 import { setCurTodayState } from "../../module/todaystatelist";
+import '../../App.css';
 import { firestore } from '../../fBase';
 
 const Wrapper = styled.div`
@@ -68,11 +69,12 @@ const Button = styled.button`
   background-color: white;
   color: black;
   font-size: 0.9rem;
+  font-family: "Gulim";
+  font-weight: bold;
   padding: 0.05vh 3vw;
   border-radius: 5px;
   border: white;
   cursor: pointer;
-
 `;
 
 const Li = styled.li`
@@ -100,6 +102,25 @@ const Li = styled.li`
   }
 `;
 
+const Text = styled.text`
+  .today-is {
+    color: #2991AC;
+    margin-left: 0.5vw;
+    margin-bottom: 0.15vh;
+    font-size: 0.9rem;
+    font-family: "DOSGothic";
+    font-weight: bold;
+  }
+  .today-state {
+    color: black;
+    margin-left: 1vw;
+    margin-bottom: 0.15vh;
+    font-size: 0.9rem;
+    font-family: "Gulim";
+    font-weight: bold;
+  }
+`;
+
 const TodayState = () => {
   const context = useContext(UserContext);
   const dispatch = useDispatch();
@@ -123,11 +144,13 @@ const TodayState = () => {
     onEditStateSubmit();
     console.log('aa')
   }
-  
   return (
     <Wrapper>
       <ToggleHeader>
-        <text> TODAY IS.. { context.state }</text>
+        <Text> 
+          <span className="today-is"> TODAY IS.. </span>
+          <span className="today-state"> {context.state}</span>
+        </Text>
         <ToggleButton onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
         </ToggleButton>
@@ -136,9 +159,9 @@ const TodayState = () => {
       <TodayStateList ref={todaystatelistRef} isOpen={isOpen}>
         {todaystatelist.map((item, index) => (
           <Li key={index} data-title={item}>
-            <a onClick={() => changeTodayState(item)} rel="noreferrer" target="_blank">
+            <a onClick={() => changeTodayState(item)} target="_blank">
               <Button>
-                <p>{item}</p>
+                {item}
               </Button>
             </a>
           </Li>

@@ -62,7 +62,6 @@ const Button = styled.button`
   border-radius: 5px;
   border: white;
   cursor: pointer;
-
 `;
 
 const Li = styled.li`
@@ -90,32 +89,45 @@ const Li = styled.li`
   }
 `;
 
+const Text = styled.text`
+  .surfing {
+    display: flex;
+    color: black;
+    // background: #9ADBF1;
+    margin-left: 0.5vw;
+    margin-top: 0.15vh;
+    margin-bottom: 0.15vh;
+    font-size: 0.9rem;
+    font-family: "Gulim";
+    font-weight: bold;
+  }
+`;
+
 const Surfing = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { list: friendlist } = useSelector((state) => state.friendlist);
   const friendlistRef = useRef();
 
   function goSurf(item) {
-    alert(item+'님의 미니홈피에 방문합니다!');
-    if(item === "윤영훈"){
+    alert(item + "님의 미니홈피에 방문합니다!");
+    if (item === "윤영훈") {
       // alert('영훈영훈');
-      window.location.href = 'https://www.naver.com';
-    }
-    else if(item === "김윤재"){
+      window.location.href = "https://www.naver.com";
+    } else if (item === "김윤재") {
       // alert('영훈영훈');
-      window.location.href = 'https://www.google.com';
-    }
-    else if(item === "백지윤"){
+      window.location.href = "https://www.google.com";
+    } else if (item === "백지윤") {
       // alert('영훈영훈');
-      window.location.href = 'https://www.daum.net';
+      window.location.href = "https://www.daum.net";
     }
   }
-  
 
   return (
     <Wrapper>
       <ToggleHeader>
-        <text> ★일촌 파도타기 </text>
+        <Text>
+          <span className="surfing">★일촌 파도타기</span>
+        </Text>
         <ToggleButton onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
         </ToggleButton>

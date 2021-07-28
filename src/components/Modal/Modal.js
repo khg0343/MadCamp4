@@ -37,14 +37,14 @@ const ModalWrapper = styled.div`
 `;
 
 const Modal = ({ isOpen, width, height, bg, children }) => {
-  return (
-    <>
-      <Background isOpen={isOpen} />
-      <ModalWrapper isOpen={isOpen} width={width} height={height} bg={bg}>
-        {children}
-      </ModalWrapper>
-    </>
-  );
+  // return (
+  //   <>
+  //     <Background isOpen={isOpen} />
+  //     <ModalWrapper isOpen={isOpen} width={width} height={height} bg={bg}>
+  //       {children}
+  //     </ModalWrapper>
+  //   </>
+  // );
 };
 
 export default Modal;
