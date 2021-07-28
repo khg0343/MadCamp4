@@ -23,15 +23,14 @@ const SidebarBlock = styled.div`
   }
 `;
 
-const Sidebar = ({ children, todayInfo }) => {
-  console.log(todayInfo)
+const Sidebar = ({ children }) => {
   return (
     <SidebarBlock>
       <ul>
         <li>
-          TODAY <span className="today">{todayInfo[0]}</span>
+          TODAY <span className="today">1</span>
         </li>
-        <li>TOTAL {todayInfo[1]}</li>
+        <li>TOTAL 999999</li>
       </ul>
       {children}
     </SidebarBlock>
