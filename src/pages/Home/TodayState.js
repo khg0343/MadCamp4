@@ -115,12 +115,12 @@ const TodayState = () => {
         title: item,
       }),
     );
-    const onEditMessageSubmit = async () => {
+    const onEditStateSubmit = async () => {
       await firestore.doc(`users/${ context.id }`).update({
         state: item
       });
     };
-    onEditMessageSubmit();
+    onEditStateSubmit();
     console.log('aa')
   }
   

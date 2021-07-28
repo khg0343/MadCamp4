@@ -191,8 +191,7 @@ const Home = () => {
           </FlexWrapper>
         </Card>
       </Sidebar>
-      <Content>
-        <h1>{ context.frontTitle }</h1>
+      <Content fT={ context.frontTitle }>
         <Card>
           <ContentSection>
             <h2>Mini Room</h2>
