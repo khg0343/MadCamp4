@@ -1,6 +1,6 @@
-import React, { useState, useContext } from "react";
-import styled from "styled-components";
-import { Switch, Route, useRouteMatch, useLocation } from "react-router-dom";
+import React, { useState, useContext, useEffect } from "react";
+import styled, { keyframes } from "styled-components";
+import { Switch, Route, useRouteMatch, useLocation, useHistory } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import Card from "../../components/Layout/Card";
 import Surfing from "../Home/Surfing";
@@ -10,10 +10,9 @@ import Sidebar from "../../components/Layout/Sidebar";
 import Content from "../../components/Layout/Content";
 // import VisiterPost from "../../components/Layout/VisiterPost";
 import ImageButton from "react-image-button";
-import Intro from "./Intro";
-import People from "./People";
 import { UserContext } from "../../store/users";
 import { publicUrl } from "../../utils/utils";
+import { firestore } from '../../fBase';
 import {
   MdLink,
   MdMailOutline,
@@ -243,23 +242,7 @@ const Visiter = () => {
   const location = useLocation();
   const match = useRouteMatch();
   const context = useContext(UserContext);
-  const list = [
-    {
-      id: 1,
-      title: "👩‍💻내 소개",
-      url: "/intro",
-      child: [
-        { id: 1, title: "기본정보", url: "/default" },
-        { id: 3, title: "기술 및 히스토리", url: "/dev" },
-        { id: 4, title: "TMI 자문자답", url: "/qna" },
-      ],
-    },
-    {
-      id: 2,
-      title: "👭내 인맥",
-      url: "/people",
-    },
-  ];
+  const [data, setData] = useState([]);
 
   const [text, setText] = useState("");
   // 하단 input 박스에서 값 변경 시 이벤트 객체가 파라미터(e)에 담겨서 온다.
@@ -267,10 +250,35 @@ const Visiter = () => {
   const onChange = (e) => {
     setText(e.target.value);
   };
+  useEffect(() => {
+    firestore
+      .collection('users')
+      .where('id', '==', 'testfor')
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          setData(doc.data().visiterbook.reverse());
+        });
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
+  }, [])
 
   const visiter_check = () => {
-    if(text !== '') {
+    if (text !== '') {
       alert(text + "을 등록하겠습니까?");
+      let a = 'testfor/김윤재/' + text + '/2021.07.' + Date().split(' ')[2] + ' ' + Date().split(' ')[4];
+      let tmpData = [...data];
+      tmpData.push(a);
+      firestore.doc(`users/testfor`).update({
+        visiterbook: tmpData
+      }).then(function () {
+        console.log(1);
+        setData(tmpData.reverse());
+      }).catch(function (error) {
+        console.log('error', error)
+      })
       setText("");
     } else {
       alert("내용을 입력하세요");
@@ -281,36 +289,36 @@ const Visiter = () => {
     <Layout>
       <Sidebar todayInfo={location.state.today}>
         <Card>
-        <FlexWrapper>
+          <FlexWrapper>
             <ProfileSection>
               <TodayState />
               <ProfileImg>
                 <img
-                  src={ publicUrl + "/resources/img/character.png"}
+                  src={publicUrl + "/resources/img/character.png"}
                   alt="profile"
                 />
               </ProfileImg>
               <Text>
-                <span className="intro">안녕 나는 백지윤이야ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>
+                <span className="intro">안녕 나는 백지윤이야ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>
               </Text>
             </ProfileSection>
             <ProfileSection>
               <p>
-                <span className="my-name">{ context.name }</span>
-                <span className="my-sex">{ context.gender }</span>
-                <span className="my-birthday">{ context.birthday }</span>
+                <span className="my-name">{context.name}</span>
+                <span className="my-sex">{context.gender}</span>
+                <span className="my-birthday">{context.birthday}</span>
               </p>
               <p>
                 <MdMailOutline />
-                { context.email }
+                {context.email}
               </p>
               <p>
                 <MdPhoneIphone />
-                { context.phone }
+                {context.phone}
               </p>
               <p>
                 <MdLocationOn />
-                { context.region }
+                {context.region}
               </p>
             </ProfileSection>
             <Surfing />
@@ -340,59 +348,33 @@ const Visiter = () => {
               />
             </VisiterButton>
           </VisiterBook>
-
-          <VisiterPost>
-            <VisiterPostHeader>
-              <text className="txt-no">No. 1</text>
-              <text className="txt-name">김현지</text>
-              <img
-                className="img-home"
-                src={publicUrl + "/resources/img/visiter_home.png"}
-                alt="home"
-              />
-              <text className="txt-date">(2021.07.28)</text>
-            </VisiterPostHeader>
-            <div>
-              <VisiterProfile>
+          {data.map(post => (
+            <VisiterPost>
+              <VisiterPostHeader>
+                <text className="txt-no">No. {data.length - data.indexOf(post)}</text>
+                <text className="txt-name">{post.split('/')[1]}</text>
                 <img
-                  src={publicUrl + "/resources/img/minimi1.png"}
-                  alt="profile"
+                  className="img-home"
+                  src={publicUrl + "/resources/img/visiter_home.png"}
+                  alt="home"
                 />
-              </VisiterProfile>
-              <VisiterText>
-                <span className="contents">
-                  ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                  ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                </span>
-              </VisiterText>
-            </div>
-          </VisiterPost>
-
-          <VisiterPost>
-            <VisiterPostHeader>
-              <text className="txt-no">No. 1</text>
-              <text className="txt-name">김현지</text>
-              <img
-                className="img-home"
-                src={publicUrl + "/resources/img/visiter_home.png"}
-                alt="home"
-              />
-              <text className="txt-date">(2021.07.28)</text>
-            </VisiterPostHeader>
-            <div>
-              <VisiterProfile>
-                <img
-                  src={publicUrl + "/resources/img/minimi1.png"}
-                  alt="profile"
-                />
-              </VisiterProfile>
-              <VisiterText>
-                <span className="contents">
-                  ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
-                </span>
-              </VisiterText>
-            </div>
-          </VisiterPost>
+                <text className="txt-date">({post.split('/')[3]})</text>
+              </VisiterPostHeader>
+              <div>
+                <VisiterProfile>
+                  <img
+                    src={publicUrl + "/resources/img/minimi1.png"}
+                    alt="profile"
+                  />
+                </VisiterProfile>
+                <VisiterText>
+                  <span className="contents">
+                    {post.split('/')[2]}
+                  </span>
+                </VisiterText>
+              </div>
+            </VisiterPost>
+          ))}
         </Card>
       </Content>
     </Layout>

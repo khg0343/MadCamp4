@@ -120,9 +120,10 @@ export default function SignUp({ data }) {
                         phone: phone,
                         email: email,
                         gender: gender,
-                        state: '졸림',
+                        state: '-',
                         today: [0, 0],
-                        birthday: birthday
+                        birthday: birthday,
+                        visiterbook: []
                     }).then(function () {
                         console.log(1)
                     }).catch(function (error) {
@@ -146,8 +147,8 @@ export default function SignUp({ data }) {
         <Container component="main" maxWidth="xs">
             <CssBaseline />
             <div className={classes.paper}>
-                <img className={classes.titleIcon} alt={"titleIcon"} src={ publicUrl + "/resources/img/title_icon.png"} />
-                <img className={classes.titleText} alt={"titleIcon"} src={ publicUrl + "/resources/img/title_text.png"} />
+                <img className={classes.titleIcon} alt={"titleIcon"} src={publicUrl + "/resources/img/title_icon.png"} />
+                <img className={classes.titleText} alt={"titleIcon"} src={publicUrl + "/resources/img/title_text.png"} />
                 <Typography component="h1" variant="h5"></Typography>
                 <form className={classes.form} noValidate>
                     <TextField
