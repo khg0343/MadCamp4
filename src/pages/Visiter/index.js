@@ -8,9 +8,10 @@ import TodayState from "../Home/TodayState";
 import SubMenu from "../../components/Menu/SubMenu";
 import Sidebar from "../../components/Layout/Sidebar";
 import Content from "../../components/Layout/Content";
-// import VisiterPost from "../../components/Layout/VisiterPost";
+
+import { UserContext, SetUserDataContext } from "../../store/users";
+
 import ImageButton from "react-image-button";
-import { UserContext } from "../../store/users";
 import { publicUrl } from "../../utils/utils";
 import { firestore } from '../../fBase';
 import {
@@ -223,8 +224,8 @@ const Visiter = () => {
   const location = useLocation();
   const match = useRouteMatch();
   const context = useContext(UserContext);
+  const contextData = useContext(SetUserDataContext);
   const [data, setData] = useState([]);
-
   const [text, setText] = useState("");
   // 하단 input 박스에서 값 변경 시 이벤트 객체가 파라미터(e)에 담겨서 온다.
 
@@ -251,16 +252,18 @@ const Visiter = () => {
       alert(text + "을 등록하겠습니까?");
       let a = location.state.curLogin + '/' + location.state.curName +  '/' + text + '/2021.07.' + Date().split(' ')[2] + ' ' + Date().split(' ')[4];
       let tmpData = [...data];
-      tmpData.push(a);
+      tmpData.unshift(a)
       firestore.doc(`users/testfor`).update({
         visiterbook: tmpData
       }).then(function () {
         console.log(1);
-        setData(tmpData.reverse());
+        setData(tmpData);
       }).catch(function (error) {
         console.log('error', error)
       })
       setText("");
+
+      contextData();
     } else {
       alert("내용을 입력하세요");
     }
@@ -313,7 +316,7 @@ const Visiter = () => {
             <div>
               <VisiterProfile>
                 <img
-                  src={publicUrl + "/resources/img/minimi1.png"}
+                  src={publicUrl + "/resources/img/minimi_"+ location.state.curLogin +".png"}
                   alt="profile"
                 />
               </VisiterProfile>
@@ -344,7 +347,7 @@ const Visiter = () => {
               <div>
                 <VisiterProfile>
                   <img
-                    src={publicUrl + "/resources/img/minimi1.png"}
+                    src={publicUrl + "/resources/img/minimi_"+ post.split('/')[0] +".png"}
                     alt="profile"
                   />
                 </VisiterProfile>

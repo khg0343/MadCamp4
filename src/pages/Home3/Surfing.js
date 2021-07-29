@@ -120,7 +120,7 @@ const Surfing = ({curLogin, curName}) => {
         state: { curLogin: curLogin, curName: curName}
       })
 
-    } else if (item === "윤영훈") {
+    } else if (item === "김현지") {
       history.push({
         pathname: '/khg0343/home',
         state: { curLogin: curLogin, curName: curName}

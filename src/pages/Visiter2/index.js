@@ -3,8 +3,8 @@ import styled, { keyframes } from "styled-components";
 import { Switch, Route, useRouteMatch, useLocation, useHistory } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
 import Card from "../../components/Layout/Card";
-import Surfing from "../Home/Surfing";
-import TodayState from "../Home/TodayState";
+import Surfing from "../Home2/Surfing";
+import TodayState from "../Home2/TodayState";
 import SubMenu from "../../components/Menu/SubMenu";
 import Sidebar from "../../components/Layout/Sidebar";
 import Content from "../../components/Layout/Content";
@@ -251,12 +251,12 @@ const Visiter = () => {
       alert(text + "을 등록하겠습니까?");
       let a = location.state.curLogin + '/' + location.state.curName +  '/' + text + '/2021.07.' + Date().split(' ')[2] + ' ' + Date().split(' ')[4];
       let tmpData = [...data];
-      tmpData.push(a);
+      tmpData.unshift(a);
       firestore.doc(`users/testfor`).update({
         visiterbook: tmpData
       }).then(function () {
         console.log(1);
-        setData(tmpData.reverse());
+        setData(tmpData);
       }).catch(function (error) {
         console.log('error', error)
       })
@@ -313,7 +313,7 @@ const Visiter = () => {
             <div>
               <VisiterProfile>
                 <img
-                  src={publicUrl + "/resources/img/minimi1.png"}
+                  src={publicUrl + "/resources/img/minimi_"+ location.state.curLogin +".png"}
                   alt="profile"
                 />
               </VisiterProfile>
@@ -344,7 +344,7 @@ const Visiter = () => {
               <div>
                 <VisiterProfile>
                   <img
-                    src={publicUrl + "/resources/img/minimi1.png"}
+                    src={publicUrl + "/resources/img/minimi_"+ post.split('/')[0] +".png"}
                     alt="profile"
                   />
                 </VisiterProfile>
