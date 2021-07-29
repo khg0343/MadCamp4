@@ -73,7 +73,7 @@ const Content = ({ fT, iD, children }) => {
         <button
           class="favorite styled"
           type="button"
-          // display= {(iD === location.state.curLogin )?"flex":"none"}
+          style={{visibility: (iD === location.state.curLogin )?"":"hidden"}}
           onClick={() => {
            ftEditable ? Complete() : Edit();
           }}

@@ -13,6 +13,7 @@ import ImageButton from "react-image-button";
 import { UserContext } from "../../store/users";
 import { publicUrl } from "../../utils/utils";
 import { firestore } from '../../fBase';
+
 import {
   MdLink,
   MdMailOutline,
@@ -222,6 +223,7 @@ const VisiterPost = styled.div`
 
 const Visiter = () => {
   const location = useLocation();
+  const history = useHistory();
   const match = useRouteMatch();
   const context = useContext(UserContext);
   const [data, setData] = useState([]);
@@ -266,6 +268,26 @@ const Visiter = () => {
       alert("내용을 입력하세요");
     }
   };
+
+  function goSurf(item) {
+    alert(item + "님의 미니홈피에 방문합니다!");
+    if (item === "윤영훈") {
+      history.push({
+        pathname: '/wodlxosxos/home',
+        state: { curLogin: location.state.curLogin, curName: location.state.curName}
+      })
+    } else if (item === "김현지") {
+      history.push({
+        pathname: '/khg0343/home',
+        state: { curLogin: location.state.curLogin, curName: location.state.curName}
+      })
+    } else if (item === "김윤재") {
+      history.push({
+        pathname: '/testfor/home',
+        state: { curLogin: location.state.curLogin, curName: location.state.curName}
+      })
+    }
+  }
 
   return (
     <Layout iD={context.id2}>
@@ -339,6 +361,7 @@ const Visiter = () => {
                   className="img-home"
                   src={publicUrl + "/resources/img/visiter_home.png"}
                   alt="home"
+                  onClick={() => goSurf(post.split('/')[1])}
                 />
                 <text className="txt-date">({post.split('/')[3]})</text>
               </VisiterPostHeader>
