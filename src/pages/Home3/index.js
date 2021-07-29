@@ -80,10 +80,11 @@ const ContentSection = styled.section`
   }
   .profImg {
     position: absolute;
-    width: 4%;
-    height: 8%;
-    right: 24%;
-    top: 46%;
+    width: 2.5%;
+    height: 5%;
+    opacity: 0;
+    right: 53.8%;
+    top: 38%;
     cursor: pointer;
   }
 `;

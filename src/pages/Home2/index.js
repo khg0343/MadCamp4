@@ -83,8 +83,9 @@ const ContentSection = styled.section`
     width: 4%;
     height: 8%;
     right: 24%;
-    top: 46%;
+    top: 44%;
     cursor: pointer;
+    transform: rotate(10deg);
   }
 `;
 
@@ -253,7 +254,7 @@ const Home = () => {
               })} >
                 <img
                   className='profImg'
-                  src={publicUrl + '/resources/img/profile.jpg'}
+                  src={publicUrl + '/resources/img/profile_khg0343.png'}
                   alt="YoungHoon"
                 />
               </button>
