@@ -196,7 +196,7 @@ const Home = () => {
   },[])
 
   return (
-    <Layout>
+    <Layout iD={context.id3}>
       <Sidebar todayInfo={ context.today3 }>
         <Card>
           <FlexWrapper>

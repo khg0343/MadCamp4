@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { MdCached, MdDone } from 'react-icons/md';
 import { setColor } from '../../../module/palette';
 import { getRandomHexColor } from '../../../utils/utils';
+import { firestore } from '../../../fBase';
+
 
 const Wrapper = styled.div`
   width: 100%;
@@ -83,7 +85,7 @@ const Color = styled.li`
   cursor: pointer;
 `;
 
-const Palette = ({ target, hexColor, setHexColor }) => {
+const Palette = ({ iD, target, hexColor, setHexColor }) => {
   const dispatch = useDispatch();
   const { palette } = useSelector(state => state);
 
@@ -103,6 +105,14 @@ const Palette = ({ target, hexColor, setHexColor }) => {
         value: hexColor,
       }),
     );
+
+    firestore.doc(`users/`+ iD).update({
+      background: hexColor
+    }).then(function () {
+      console.log(1)
+    }).catch(function (error) {
+      console.log('error', error)
+    })
   };
 
   return (

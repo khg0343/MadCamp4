@@ -1,13 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import Setting from '../Setting';
+import { publicUrl } from "../../utils/utils";
 
 const Wrapper = styled.div`
   display: flex;
+  background-size: cover;
   justify-content: space-between;
   height: 100vh;
   padding: 3vh 1.5vw;
-  background: ${props => props.theme.bg.color};
+  // background: ${props => props.theme.bg.color};
 `;
 
 const BorderWrapper = styled.div`
@@ -30,9 +32,9 @@ const BgWrapper = styled.div`
   border-radius: 10px;
 `;
 
-const Layout = ({ children }) => {
+const Layout = ({ iD, children }) => {
   return (
-    <Wrapper>
+    <Wrapper style={{backgroundImage: "url("+ publicUrl + "/resources/img/skin_"+ iD +".png)"}}>
       <BorderWrapper>
         <BgWrapper>{children}</BgWrapper>
       </BorderWrapper>

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { UserContext, SetUserDataContext } from "../../store/users";
+import { useLocation, useHistory } from 'react-router-dom';
 import styled from "styled-components";
 import { firestore } from "../../fBase";
 
@@ -44,6 +45,7 @@ const Content = ({ fT, iD, children }) => {
   const context = useContext(UserContext);
   const contextData = useContext(SetUserDataContext);
   const [ftEditable, setftEditable] = useState(false);
+  const location = useLocation();
 
   function Edit() {
     setftEditable(true);
@@ -71,6 +73,7 @@ const Content = ({ fT, iD, children }) => {
         <button
           class="favorite styled"
           type="button"
+          // display= {(iD === location.state.curLogin )?"flex":"none"}
           onClick={() => {
            ftEditable ? Complete() : Edit();
           }}
