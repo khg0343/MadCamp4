@@ -24,7 +24,6 @@ export default function todaystatelist(state = initialState, action) {
       return {
         ...state,
         curTodayState: {
-          idx: action.payload.idx,
           title: action.payload.title,
         },
       };

@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
+import { useLocation, useHistory } from 'react-router-dom';
+import { publicUrl } from "../../utils/utils";
 
 const Wrapper = styled.div`
   margin: 0.75vh 0.5vw;
@@ -103,22 +105,26 @@ const Text = styled.text`
   }
 `;
 
-const Surfing = () => {
+const Surfing = ({curLogin, curName}) => {
   const [isOpen, setIsOpen] = useState(false);
   const { list: friendlist } = useSelector((state) => state.friendlist);
   const friendlistRef = useRef();
+  const history = useHistory();
+  const location = useLocation();
 
   function goSurf(item) {
     alert(item + "님의 미니홈피에 방문합니다!");
+    console.log(curName, curLogin, '체크')
     if (item === "윤영훈") {
-      // alert('영훈영훈');
-      window.location.href = "https://www.naver.com";
-    } else if (item === "김윤재") {
-      // alert('영훈영훈');
-      window.location.href = "https://www.google.com";
-    } else if (item === "백지윤") {
-      // alert('영훈영훈');
-      window.location.href = "https://www.daum.net";
+      history.push({
+        pathname: '/wodlxosxos/home',
+        state: { curLogin: curLogin, curName: curName}
+      })
+    } else if (item === "김현지") {
+      history.push({
+        pathname: '/khg0343/home',
+        state: { curLogin: curLogin, curName: curName}
+      })
     }
   }
 

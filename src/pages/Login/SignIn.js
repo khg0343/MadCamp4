@@ -1,12 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
-import styled from 'styled-components';
+
 import { firestore } from "../../fBase"
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
@@ -14,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { publicUrl } from '../../utils/utils';
-
 
 function Copyright() {
     return (
@@ -79,9 +77,11 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
     const classes = useStyles();
     const [id, setId] = useState('')
+    let name = '';
     const [password, setPassword] = useState('')
     const [notice, setNotice] = useState('')
     const [today, setToday] = useState([0, 0])
+
     let history = useHistory();
 
     const onClick = (event) => {
@@ -91,7 +91,8 @@ export default function SignIn() {
             docs.forEach(doc => {
                 if (id === doc.data().id && password === doc.data().password) {
                     check = true
-                    setToday(doc.data().today)
+                    name = doc.data().name
+                    // setToday(doc.data().today)
                 }
             })
         }).then(tmp => {
@@ -99,11 +100,11 @@ export default function SignIn() {
                 setNotice('옳지 않은 정보입니다.')
                 setPassword('')
             } else {
-                console.log(2)
+                console.log('login name', name)
                 setNotice('')
                 history.replace({
-                    pathname: '/home',
-                    state: { curLogin: id, today: today }
+                    pathname: '/'+ id +'/home',
+                    state: { curLogin: id, curName: name}
                 })
             }
         })

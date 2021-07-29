@@ -1,10 +1,7 @@
-import React, { Component, useState, useContext } from "react";
-import { UserContext } from "../../store/users";
+import React, { useState, useContext } from "react";
+import { UserContext, SetUserDataContext } from "../../store/users";
 import styled from "styled-components";
-import { EditText, EditTextarea } from "react-edit-text";
-import MainMenu from "../Menu/MainMenu";
 import { firestore } from "../../fBase";
-import { data } from "../../index";
 
 const ContentWrapper = styled.div`
   display: flex;
@@ -43,8 +40,9 @@ const ContentWrapper = styled.div`
   }
 `;
 
-const Content = ({ fT, children }) => {
+const Content = ({ fT, iD, children }) => {
   const context = useContext(UserContext);
+  const contextData = useContext(SetUserDataContext);
   const [ftEditable, setftEditable] = useState(false);
 
   function Edit() {
@@ -55,11 +53,12 @@ const Content = ({ fT, children }) => {
             console.log(mfrontTitle);
             setftEditable(false);
             const onEditFTSubmit = async () => {
-              await firestore.doc(`users/${context.id}`).update({
+              await firestore.doc(`users/${iD}`).update({
                 frontTitle: mfrontTitle,
               });
             };
             onEditFTSubmit();
+            contextData();
   }
 
   return (
@@ -68,7 +67,7 @@ const Content = ({ fT, children }) => {
         <h1 id="frontTitle" contentEditable={ftEditable}>
           {fT}
         </h1>
-        <h3> https://www.kaiworld.com/khg0343</h3>
+        <h3> https://www.kaiworld.com/{iD}</h3>
         <button
           class="favorite styled"
           type="button"

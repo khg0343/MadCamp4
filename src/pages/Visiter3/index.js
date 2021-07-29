@@ -234,7 +234,7 @@ const Visiter = () => {
   useEffect(() => {
     firestore
       .collection('users')
-      .where('id', '==', 'testfor')
+      .where('id', '==', 'wodlxosxos')
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -252,7 +252,7 @@ const Visiter = () => {
       let a = location.state.curLogin + '/' + location.state.curName +  '/' + text + '/2021.07.' + Date().split(' ')[2] + ' ' + Date().split(' ')[4];
       let tmpData = [...data];
       tmpData.push(a);
-      firestore.doc(`users/testfor`).update({
+      firestore.doc(`users/wodlxosxos`).update({
         visiterbook: tmpData
       }).then(function () {
         console.log(1);
@@ -280,33 +280,33 @@ const Visiter = () => {
                 />
               </ProfileImg>
               <Text>
-                <span className="intro">{context.id1 + "입니다"}</span>
+                <span className="intro">{location.state.curLogin + "압니다"}</span>
               </Text>
             </ProfileSection>
             <ProfileSection>
               <p>
-                <span className="my-name">{context.name1}</span>
-                <span className="my-sex">{context.gender1}</span>
-                <span className="my-birthday">{context.birthday1}</span>
+                <span className="my-name">{context.name3}</span>
+                <span className="my-sex">{context.gender3}</span>
+                <span className="my-birthday">{context.birthday3}</span>
               </p>
               <p>
                 <MdMailOutline />
-                {context.email1}
+                {context.email3}
               </p>
               <p>
                 <MdPhoneIphone />
-                {context.phone1}
+                {context.phone3}
               </p>
               <p>
                 <MdLocationOn />
-                {context.region1}
+                {context.region3}
               </p>
             </ProfileSection>
             <Surfing curLogin={location.state.curLogin} curName={location.state.curName}/>
           </FlexWrapper>
         </Card>
       </Sidebar>
-      <Content fT={context.frontTitle1}>
+      <Content fT={context.frontTitle3}>
         <Card>
           <Title>Visiter</Title>
           <VisiterBook>

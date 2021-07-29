@@ -5,7 +5,7 @@ import Sidebar from '../../components/Layout/Sidebar';
 import Content from '../../components/Layout/Content';
 import Card from '../../components/Layout/Card';
 import { useLocation, useHistory } from 'react-router-dom';
-
+import Button from '@material-ui/core/Button';
 import Surfing from './Surfing';
 import TodayState from './TodayState';
 import { publicUrl } from "../../utils/utils";
@@ -164,15 +164,15 @@ const Home = () => {
   let history = useHistory();
   useEffect(() => {
     console.log(context, "context check")
-    if (location.state.curLogin !== 'testfor') {
-      if (dateInfo === context.last1) {
-        today = [context.today1[0] + 1, context.today1[1] + 1]
+    if (location.state.curLogin !== 'wodlxosxos') {
+      if (dateInfo === context.last3) {
+        today = [context.today3[0] + 1, context.today3[1] + 1]
       } else {
-        today = [1, context.today1[1] + 1]
+        today = [1, context.today3[1] + 1]
       }
       console.log(today)
 
-      firestore.doc(`users/testfor`).update({
+      firestore.doc(`users/wodlxosxos`).update({
         today: today
       }).then(function () {
         console.log(1)
@@ -180,7 +180,7 @@ const Home = () => {
         console.log('error', error)
       })
 
-      firestore.doc(`users/testfor`).update({
+      firestore.doc(`users/wodlxosxos`).update({
         last: dateInfo
       }).then(function () {
         console.log(1)
@@ -188,7 +188,7 @@ const Home = () => {
         console.log('error', error)
       })      
     } else {
-      today = [context.today1[0] , context.today1[1] ]
+      today = [context.today3[0] , context.today3[1] ]
     }
     // setTodayInfo(today);
     contextData();
@@ -197,7 +197,7 @@ const Home = () => {
 
   return (
     <Layout>
-      <Sidebar todayInfo={ context.today1 }>
+      <Sidebar todayInfo={ context.today3 }>
         <Card>
           <FlexWrapper>
             <ProfileSection>
@@ -210,46 +210,46 @@ const Home = () => {
               </ProfileImg>
 
               <Text>
-                <span className="intro">{context.id1 + "입니다"}</span>
+                <span className="intro">{context.id3+ "입니다"}</span>
               </Text>
             </ProfileSection>
             <ProfileSection>
               <p>
-                <span className="my-name">{ context.name1 }</span>
-                <span className="my-sex">{ context.gender1 }</span>
-                <span className="my-birthday">{ context.birthday1 }</span>
+                <span className="my-name">{ context.name3 }</span>
+                <span className="my-sex">{ context.gender3 }</span>
+                <span className="my-birthday">{ context.birthday3 }</span>
               </p>
               <p>
                 <MdMailOutline />
-                { context.email1 }
+                { context.email3 }
               </p>
               <p>
                 <MdPhoneIphone />
-                { context.phone1 }
+                { context.phone3 }
               </p>
               <p>
                 <MdLocationOn />
-                { context.region1 }
+                { context.region3 }
               </p>
             </ProfileSection>
             <Surfing curLogin={location.state.curLogin} curName={location.state.curName}/>
           </FlexWrapper>
         </Card>
       </Sidebar>
-      <Content fT={ context.frontTitle1 } iD={ context.id1 }>
+      <Content fT={ context.frontTitle3 } iD={ context.id3 }>
         <Card>
           <ContentSection>
             <h2>Mini Room</h2>
             <div>
               <img
                 className="backImg"
-                src={publicUrl + "/resources/img/miniroom1.gif"}
+                src={publicUrl + "/resources/img/miniroom3.gif"}
                 alt="miniroom"
               >
               </img>
               <button onClick={() => history.push({
-                pathname: '/testfor/visiter',
-                state: { curLogin: location.state.curLogin, today: context.today1, curName: location.state.curName}
+                pathname: '/wodlxosxos/visiter',
+                state: { curLogin: location.state.curLogin, today: context.today3, curName: location.state.curName}
               })} >
                 <img
                   className='profImg'

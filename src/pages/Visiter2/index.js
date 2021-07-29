@@ -234,7 +234,7 @@ const Visiter = () => {
   useEffect(() => {
     firestore
       .collection('users')
-      .where('id', '==', 'testfor')
+      .where('id', '==', 'khg0343')
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -280,33 +280,33 @@ const Visiter = () => {
                 />
               </ProfileImg>
               <Text>
-                <span className="intro">{context.id1 + "입니다"}</span>
+                <span className="intro">{location.state.curLogin + "압니다"}</span>
               </Text>
             </ProfileSection>
             <ProfileSection>
               <p>
-                <span className="my-name">{context.name1}</span>
-                <span className="my-sex">{context.gender1}</span>
-                <span className="my-birthday">{context.birthday1}</span>
+                <span className="my-name">{context.name2}</span>
+                <span className="my-sex">{context.gender2}</span>
+                <span className="my-birthday">{context.birthday2}</span>
               </p>
               <p>
                 <MdMailOutline />
-                {context.email1}
+                {context.email2}
               </p>
               <p>
                 <MdPhoneIphone />
-                {context.phone1}
+                {context.phone2}
               </p>
               <p>
                 <MdLocationOn />
-                {context.region1}
+                {context.region2}
               </p>
             </ProfileSection>
             <Surfing curLogin={location.state.curLogin} curName={location.state.curName}/>
           </FlexWrapper>
         </Card>
       </Sidebar>
-      <Content fT={context.frontTitle1}>
+      <Content fT={context.frontTitle2}>
         <Card>
           <Title>Visiter</Title>
           <VisiterBook>

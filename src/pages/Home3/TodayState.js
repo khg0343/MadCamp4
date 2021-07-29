@@ -1,13 +1,8 @@
 import React, { Component, useContext, useRef, useState } from "react";
 import { UserContext, SetUserDataContext } from '../../store/users';
 import { useSelector, useDispatch } from "react-redux";
-// import { AgGridColumn, AgGridReact } from "ag-grid-react";
-// import "ag-grid-community/dist/styles/ag-grid.css";
-// import "ag-grid-community/dist/styles/ag-theme-balham.css";
-import { Container, Row, Col } from "react-grid-system";
 import styled from "styled-components";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
-import { isoParse } from "d3";
 import { setCurTodayState } from "../../module/todaystatelist";
 import '../../App.css';
 import { firestore } from '../../fBase';
@@ -137,7 +132,7 @@ const TodayState = () => {
       }),
     );
     const onEditStateSubmit = async () => {
-      await firestore.doc(`users/${ context.id1 }`).update({
+      await firestore.doc(`users/${ context.id3 }`).update({
         state: item
       });
     };
@@ -150,7 +145,7 @@ const TodayState = () => {
       <ToggleHeader>
         <Text> 
           <span className="today-is"> TODAY IS.. </span>
-          <span className="today-state"> {context.state1}</span>
+          <span className="today-state"> {context.state3}</span>
         </Text>
         <ToggleButton onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? <MdKeyboardArrowDown /> : <MdKeyboardArrowUp />}
