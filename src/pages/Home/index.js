@@ -80,10 +80,10 @@ const ContentSection = styled.section`
   }
   .profImg {
     position: absolute;
-    width: 4%;
-    height: 8%;
-    right: 24%;
-    top: 46%;
+    width: 6%;
+    height: auto;
+    right: 45.9%;
+    top: 15.2%;
     cursor: pointer;
   }
 `;
@@ -254,7 +254,7 @@ const Home = () => {
               })} >
                 <img
                   className='profImg'
-                  src={publicUrl + '/resources/img/profile.jpg'}
+                  src={publicUrl + '/resources/img/profile_yoonjae.png'}
                   alt="YoungHoon"
                 />
               </button>
