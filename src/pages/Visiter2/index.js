@@ -31,6 +31,7 @@ const ProfileImg = styled.div`
   z-index: 2;
   position: relative;
   display: flex;
+  height: 30vh;
   padding: 0.5vh 0.5vw;
   margin: 0.5vw;
   border: 0.4vmin solid #f0f1f0;
@@ -83,9 +84,9 @@ const ProfileSection = styled.section`
 `;
 
 const Text = styled.text`
-  .intro {
+  .intro{
     display: flex;
-    height: 17vh;
+    height: 12vh;
     margin: 1vw 2vh;
     font-size: 0.9rem;
     font-family: "Gulim";
@@ -252,7 +253,7 @@ const Visiter = () => {
       let a = location.state.curLogin + '/' + location.state.curName +  '/' + text + '/2021.07.' + Date().split(' ')[2] + ' ' + Date().split(' ')[4];
       let tmpData = [...data];
       tmpData.unshift(a);
-      firestore.doc(`users/testfor`).update({
+      firestore.doc(`users/khg0343`).update({
         visiterbook: tmpData
       }).then(function () {
         console.log(1);
@@ -267,7 +268,7 @@ const Visiter = () => {
   };
 
   return (
-    <Layout>
+    <Layout iD={context.id2}>
       <Sidebar todayInfo={location.state.today}>
         <Card>
           <FlexWrapper>
@@ -275,12 +276,12 @@ const Visiter = () => {
               <TodayState />
               <ProfileImg>
                 <img
-                  src={publicUrl + "/resources/img/character.png"}
+                  src={ publicUrl + "/resources/img/profile_"+ context.id2 +".png"}
                   alt="profile"
                 />
               </ProfileImg>
               <Text>
-                <span className="intro">{context.introduce2}</span>
+                <span className="intro">{context.introduce2.replace("bb", "\n")}</span>
               </Text>
             </ProfileSection>
             <ProfileSection>

@@ -32,6 +32,7 @@ const ProfileImg = styled.div`
   z-index: 2;
   position: relative;
   display: flex;
+  height: 30vh;
   padding: 0.5vh 0.5vw;
   margin: 0.5vw;
   border: 0.4vmin solid #f0f1f0;
@@ -84,9 +85,9 @@ const ProfileSection = styled.section`
 `;
 
 const Text = styled.text`
-  .intro {
+  .intro{
     display: flex;
-    height: 17vh;
+    height: 12vh;
     margin: 1vw 2vh;
     font-size: 0.9rem;
     font-family: "Gulim";
@@ -270,7 +271,7 @@ const Visiter = () => {
   };
 
   return (
-    <Layout>
+    <Layout iD={context.id1}>
       <Sidebar todayInfo={location.state.today}>
         <Card>
           <FlexWrapper>
@@ -278,12 +279,12 @@ const Visiter = () => {
               <TodayState />
               <ProfileImg>
                 <img
-                  src={publicUrl + "/resources/img/character.png"}
+                  src={ publicUrl + "/resources/img/profile_"+ context.id1 +".png"}
                   alt="profile"
                 />
               </ProfileImg>
               <Text>
-                <span className="intro">{context.introduce1}</span>
+                <span className="intro">{context.introduce1.replace("bb", "\n")}</span>
               </Text>
             </ProfileSection>
             <ProfileSection>
