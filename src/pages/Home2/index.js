@@ -255,7 +255,7 @@ const Home = () => {
               })} >
                 <img
                   className='profImg'
-                  src={publicUrl + '/resources/img/profile_khg0343.png'}
+                  src={publicUrl + '/resources/img/profile_hyeonji.png'}
                   alt="YoungHoon"
                 />
               </button>

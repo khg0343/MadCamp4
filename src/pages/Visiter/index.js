@@ -240,7 +240,7 @@ const Visiter = () => {
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-          setData(doc.data().visiterbook.reverse());
+          setData(doc.data().visiterbook);
         });
       })
       .catch((error) => {
