@@ -280,7 +280,7 @@ const Visiter = () => {
                 />
               </ProfileImg>
               <Text>
-                <span className="intro">{location.state.curLogin + "압니다"}</span>
+                <span className="intro">{context.introduce3}</span>
               </Text>
             </ProfileSection>
             <ProfileSection>

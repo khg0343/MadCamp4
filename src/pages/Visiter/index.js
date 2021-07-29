@@ -283,7 +283,7 @@ const Visiter = () => {
                 />
               </ProfileImg>
               <Text>
-                <span className="intro">{context.id1 + "입니다"}</span>
+                <span className="intro">{context.introduce1}</span>
               </Text>
             </ProfileSection>
             <ProfileSection>

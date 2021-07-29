@@ -7,7 +7,6 @@ const initialState = {
     '윤영훈',
     '김윤재',
     '김현지',
-    // '백지윤',
   ],
   curFriend: {
     idx: 0,

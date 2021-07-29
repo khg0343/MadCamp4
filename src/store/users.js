@@ -15,6 +15,7 @@ const UserStore = (props) => {
   const [phone1, setPhone1] = useState("");
   const [state1, setState1] = useState("");
   const [region1, setRegion1] = useState("");
+  const [introduce1, setIntroduce1] = useState("");
   const [today1, setToday1] = useState([0, 0]);
   const [last1, setLast1] = useState(0);
 
@@ -28,6 +29,7 @@ const UserStore = (props) => {
   const [phone2, setPhone2] = useState("");
   const [state2, setState2] = useState("");
   const [region2, setRegion2] = useState("");
+  const [introduce2, setIntroduce2] = useState("");
   const [today2, setToday2] = useState([0, 0]);
   const [last2, setLast2] = useState(0);
 
@@ -41,6 +43,7 @@ const UserStore = (props) => {
   const [phone3, setPhone3] = useState("");
   const [state3, setState3] = useState("");
   const [region3, setRegion3] = useState("");
+  const [introduce3, setIntroduce3] = useState("");
   const [today3, setToday3] = useState([0, 0]);
   const [last3, setLast3] = useState();
 
@@ -67,6 +70,7 @@ const UserStore = (props) => {
           setPhone1(doc.data().phone);
           setState1(doc.data().state);
           setRegion1(doc.data().region);
+          setIntroduce1(doc.data().introduce);
           setToday1(doc.data().today);
           setLast1(doc.data().last);
         });
@@ -93,6 +97,7 @@ const UserStore = (props) => {
           setPhone2(doc.data().phone);
           setState2(doc.data().state);
           setRegion2(doc.data().region);
+          setIntroduce2(doc.data().introduce);
           setToday2(doc.data().today);
           setLast2(doc.data().last);
         });
@@ -121,6 +126,7 @@ const UserStore = (props) => {
           setPhone3(doc.data().phone);
           setState3(doc.data().state);
           setRegion3(doc.data().region);
+          setIntroduce3(doc.data().introduce);
           setToday3(doc.data().today);
           setLast3(doc.data().last);
         });
@@ -142,6 +148,7 @@ const UserStore = (props) => {
     phone1: phone1,
     state1: state1,
     region1: region1,
+    introduce1: introduce1,
     today1: today1,
     last1: last1,
 
@@ -155,6 +162,7 @@ const UserStore = (props) => {
     phone2: phone2,
     state2: state2,
     region2: region2,
+    introduce2: introduce2,
     today2: today2,
     last2: last2,
 
@@ -168,6 +176,7 @@ const UserStore = (props) => {
     phone3: phone3,
     state3: state3,
     region3: region3,
+    introduce3: introduce3,
     today3: today3,
     last3: last3,
   };

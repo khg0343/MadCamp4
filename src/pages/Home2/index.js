@@ -210,7 +210,7 @@ const Home = () => {
               </ProfileImg>
 
               <Text>
-                <span className="intro">{context.id2 + "입니다"}</span>
+                <span className="intro">{context.introduce2}</span>
               </Text>
             </ProfileSection>
             <ProfileSection>
@@ -248,7 +248,7 @@ const Home = () => {
               >
               </img>
               <button onClick={() => history.push({
-                pathname: '/testfor/visiter',
+                pathname: '/khg0343/visiter',
                 state: { curLogin: location.state.curLogin, today: context.today2, curName: location.state.curName}
               })} >
                 <img

@@ -210,7 +210,7 @@ const Home = () => {
               </ProfileImg>
 
               <Text>
-                <span className="intro">{context.id3+ "입니다"}</span>
+                <span className="intro">{context.introduce3}</span>
               </Text>
             </ProfileSection>
             <ProfileSection>
